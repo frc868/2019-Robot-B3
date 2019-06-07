@@ -8,45 +8,49 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.subsystems.Drivetrain;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
+
 public class Robot extends TimedRobot {
-  /**
-   * This function is run when the robot is first started up and should be used
-   * for any initialization code.
-   */
+  public static Drivetrain drivetrain = new Drivetrain();
+
   @Override
   public void robotInit() {
   }
 
   @Override
+  public void robotPeriodic() {
+  }
+
+  @Override
   public void autonomousInit() {
+    OI.init();
   }
 
   @Override
   public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
   }
 
   @Override
   public void teleopInit() {
+    OI.init();
   }
 
   @Override
   public void teleopPeriodic() {
+    Scheduler.getInstance().run();
   }
 
   @Override
   public void testInit() {
+    OI.init();
   }
 
   @Override
   public void testPeriodic() {
+    Scheduler.getInstance().run();
   }
 
 }

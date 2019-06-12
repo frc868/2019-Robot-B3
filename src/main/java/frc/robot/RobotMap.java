@@ -1,7 +1,9 @@
 package frc.robot;
 
-public class RobotMap{
-    public static class Drivetrain{
+public class RobotMap {
+    public static int PCM = 0;
+
+    public static class Drivetrain {
         public static final int LEFT_PRIMARY = 23; // untested
         public static final int LEFT_SECONDARY = 24; // untested
         public static final int LEFT_TERTIARY = 25; // untested
@@ -11,16 +13,26 @@ public class RobotMap{
         public static final int RIGHT_TERTIARY = 12; // untested
     }
 
-    public static class Powerpack{
-        public static final int PRIMARY = 13; // untested
-        public static final int SECONDARY = 22; // untested
+    public static class ClimberElevator {
+        public static final int PRIMARY = 13;
+        public static final int SECONDARY = 22;
+        public static final boolean PRIMARY_IS_INVERTED = false; // untested
+        public static final boolean SECONDARY_IS_INVERTED = true; // untested
+
+        public static final int SWITCHER = 2;    // untested
+        public static final int ELEV_BRAKE = 3;  // untested
+        public static final int CLIMB_BRAKE = 4; // untested
+
+        public static final int ELEV_TOP_LIM = 0; // untested
+        public static final int ELEV_BOT_LIM = 1; // untested
+        public static final int CLIMB_LIM_SWITCH = 4; // untested
     }
 
-    public static class Sensors{
-        public static final int GYRO = 1; //untested
+    public static class Sensors {
+        public static final int GYRO = 1; // untested
     }
 
-    public static class Controllers{
+    public static class Controllers {
         public static final int DRIVER_PORT = 0;
         public static final int OPERATOR_PORT = 1;
 

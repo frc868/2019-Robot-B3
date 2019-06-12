@@ -18,7 +18,7 @@ public class RobotMap{
     }
 
     public static class Sensors{
-        
+        public static final int GYRO = 1; //untested
     }
 
     public static class Controllers{

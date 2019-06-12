@@ -10,15 +10,25 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
 
-public class Drivetrain extends Subsystem {
+/**
+ * This class is the robot's Drivetrain. It is a singleton to avoid instantiating it multiple times
+ * @author dri
+ */
+public class Drivetrain {
+  // These are the motor controllers which we are using
   private CANSparkMax
-    l_primary, l_secondary, l_tertiary,
-    r_primary, r_secondary, r_tertiary;
+    l_primary, l_secondary, l_tertiary, r_primary, r_secondary, r_tertiary;
+  private SpeedControllerGroup leftGroup; //All of the left motor controllers grouped together
+  private SpeedControllerGroup rightGroup; //All of the right motor controllers grouped together
 
-    public Drivetrain(){
+  private static Drivetrain instance; //This is the instance of the drivetrain class
+
+  private static final double DEADZONE_RANGE = 0.1; //Bounds of the "dead zone" within joystick
+
+    private Drivetrain() {
       l_primary = new CANSparkMax(RobotMap.Drivetrain.LEFT_PRIMARY, MotorType.kBrushless);
       l_secondary = new CANSparkMax(RobotMap.Drivetrain.LEFT_SECONDARY, MotorType.kBrushless);
       l_tertiary = new CANSparkMax(RobotMap.Drivetrain.LEFT_TERTIARY, MotorType.kBrushless);
@@ -26,31 +36,74 @@ public class Drivetrain extends Subsystem {
       r_secondary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_SECONDARY, MotorType.kBrushless);
       r_tertiary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_TERTIARY, MotorType.kBrushless);
 
-      l_primary.setInverted(false); //TODO: test inversions (copied from 2019-robot, but can never be too safe)
-      l_secondary.setInverted(false);
-      l_tertiary.setInverted(false);
-      r_primary.setInverted(true);
-      r_secondary.setInverted(true);
-      r_tertiary.setInverted(true);
+      leftGroup = new SpeedControllerGroup(l_primary,l_secondary,l_tertiary);
+      rightGroup = new SpeedControllerGroup(r_primary,r_secondary,r_tertiary);
+
+      leftGroup.setInverted(false); // TODO: test inversions (copied from 2019-robot, but can never be too safe)
+      rightGroup.setInverted(true);
     }
 
-    public void setLeftSpeed(double speed){
-      l_primary.set(speed);
-      l_secondary.set(speed);
-      l_tertiary.set(speed);
+    /**
+     * Checks to see if the instance of this class has already been created.
+     * If so, return it. If not, create it and return it.
+     * @return instance of the drivetrain class
+     */
+    public static Drivetrain getInstance() {
+      if (instance == null){
+        instance = new Drivetrain();
+      }
+      return instance;
     }
 
-    public void setRightSpeed(double speed){
-      r_primary.set(speed);
-      r_secondary.set(speed);
-      r_tertiary.set(speed);
+    /**
+     * Sets left side of robot to specified speed (between 0 and 1)
+     * @param speed speed to set right side of robot to
+     */
+    public void setLeftSpeed(double speed) {
+      // l_primary.set(speed);
+      // l_secondary.set(speed);
+      // l_tertiary.set(speed);
+      leftGroup.set(speed);
     }
 
-    public void setSpeed(double leftSpeed, double rightSpeed){
+    /**
+     * Sets right side of robot to specified speed (between 0 and 1)
+     * @param speed speed to set right side of robot to
+     */
+    public void setRightSpeed(double speed) {
+      // r_primary.set(speed);
+      // r_secondary.set(speed);
+      // r_tertiary.set(speed);
+      rightGroup.set(speed);
+    }
+    /**
+     * Sets both sides of drivetrain to specified speeds (between 0 and 1)
+     * @param leftSpeed speed to set left side of robot to
+     * @param rightSpeed speed to set right side of robot to
+     */
+    public void setSpeed(double leftSpeed, double rightSpeed) {
       setLeftSpeed(leftSpeed);
       setRightSpeed(rightSpeed);
     }
+    /**
+     * Arcade drive with movement in y direction controlled by left joystick and movement in x
+     * direction controlled by right joystick
+     * @param y the value of the left joystick's y axis
+     * @param x the value of the right joystick's x axis
+     */
+    public void arcadeDrive(double y, double x) {
+      y = deadband(y);
+      x = deadband(x);
 
-  @Override
-  public void initDefaultCommand() {}
+      setSpeed(y+x, y-x);
+    }
+
+    /** 
+     * @param value the value of the joystick
+     * @return the value of the joystick if it is outside the range of the deadband
+     */
+    public static double deadband(double value) {
+      return Math.abs(value) < DEADZONE_RANGE ? 0 : value;
+  }
+
 }

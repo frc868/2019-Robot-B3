@@ -13,7 +13,7 @@ import frc.robot.subsystems.Drivetrain;
 
 
 public class Robot extends TimedRobot {
-  public static Drivetrain drivetrain = new Drivetrain();
+  public static Drivetrain drivetrain = Drivetrain.getInstance();
 
   @Override
   public void robotInit() {

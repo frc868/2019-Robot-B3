@@ -48,7 +48,7 @@ public class Drivetrain {
      * If so, return it. If not, create it and return it.
      * @return instance of the drivetrain class
      */
-    public static Drivetrain getInstance() {
+    public Drivetrain getInstance() {
       if (instance == null){
         instance = new Drivetrain();
       }

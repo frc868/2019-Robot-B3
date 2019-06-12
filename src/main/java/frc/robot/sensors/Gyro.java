@@ -17,8 +17,8 @@ import frc.robot.RobotMap;
  * @author acr
  */
 public class Gyro {
-    
-    private Gyro instance = null;    //This is the instance of our Gyro class.
+
+    private static Gyro instance = null;    //This is the instance of our Gyro class.
     private AnalogGyro gyro = null;  //This is the actual Gyro class from WPI which interface with the sensor.
 
     /**
@@ -34,12 +34,12 @@ public class Gyro {
      * Checks to see if the instance of this class has already been created.
      * If so, return it. If not, create it and return it.
      */
-    public Gyro getInstance() {
+    public static Gyro getInstance() {
         if(instance == null) {
             instance = new Gyro();
         }
 
-        return this.instance;
+        return instance;
     }
 
     /**

@@ -54,4 +54,8 @@ public class RobotMap {
         public static final int LT = 2;
         public static final int RT = 3;
     }
+
+    public static class ClimberArms {
+        public static final int SOLENOID_CHANNEL = 0;
+    }
 }

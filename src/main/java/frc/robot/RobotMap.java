@@ -1,5 +1,16 @@
 package frc.robot;
 
+/**
+ * This is the RobotMap class, which stores constants for use throughout the project.
+ * These constants include motor controller constants, controller mappings, etc.
+ * @author dri
+ */
+
+
+ /* IMPORTANT:
+    Once a constant has been tested, switch the comment to "tested"
+    If you change/add a constant, label it "untested"
+ */
 public class RobotMap {
     public static int PCM = 0;
 

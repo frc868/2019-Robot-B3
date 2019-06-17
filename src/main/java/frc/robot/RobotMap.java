@@ -30,6 +30,8 @@ public class RobotMap {
         public static final boolean PRIMARY_IS_INVERTED = false; // untested
         public static final boolean SECONDARY_IS_INVERTED = true; // untested
 
+        public static final int FOOT_MOTOR = 21; //untested
+
         public static final int SWITCHER = 2;    // untested
         public static final int ELEV_BRAKE = 3;  // untested
         public static final int CLIMB_BRAKE = 4; // untested
@@ -37,6 +39,7 @@ public class RobotMap {
         public static final int ELEV_TOP_LIM = 0; // untested
         public static final int ELEV_BOT_LIM = 1; // untested
         public static final int CLIMB_LIM_SWITCH = 4; // untested
+
     }
 
     public static class Sensors {

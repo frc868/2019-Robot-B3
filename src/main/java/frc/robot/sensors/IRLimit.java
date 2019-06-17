@@ -42,6 +42,7 @@ public class IRLimit {
     /**
      * Print the state of the limit switch, for use on the SmartDashboard.
      */
+    @Override
     public String toString() {
         String toString = "" + this.get();
         return toString;

@@ -7,14 +7,13 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.sensors.IRLimit;
 
@@ -28,6 +27,7 @@ public class ClimberElevator {
     private static ClimberElevator instance;
 
     private CANSparkMax primary, secondary; // drive motors
+    private WPI_TalonSRX footMotor; // the bottom motor on the foot to drive forward
     private Solenoid switcher, elevBrake, climbBrake; // switches between climb/elevator, brakes
     private IRLimit elevTopLim, elevBotLim, climbTopLim, climbBotLim, climbLimSwitch;
     private Ultrasonic leftHSensor, rightHSensor;
@@ -39,6 +39,8 @@ public class ClimberElevator {
         // initialize motor controllers
         primary = new CANSparkMax(RobotMap.ClimberElevator.PRIMARY, MotorType.kBrushless);
         secondary = new CANSparkMax(RobotMap.ClimberElevator.SECONDARY, MotorType.kBrushless);
+
+        footMotor = new WPI_TalonSRX(RobotMap.ClimberElevator.FOOT_MOTOR);
        
         primary.setIdleMode(IdleMode.kBrake);
         secondary.setIdleMode(IdleMode.kBrake);
@@ -72,7 +74,7 @@ public class ClimberElevator {
     }
 
     public void periodic() {
-        if (primary.get == 0) {
+        if (primary.get() == 0) {
             setElevBrake(true);
         }
     }
@@ -155,6 +157,14 @@ public class ClimberElevator {
      */
     public boolean getClimbBrake() {
         return climbBrake.get() == BRAKE_MODE;
+    }
+
+    /**
+     * sets the foot motor to a value between -1 and 1
+     * @param speed the power to set the motor to
+     */
+    public void driveFoot(double speed) {
+        footMotor.set(speed);
     }
    
     /**

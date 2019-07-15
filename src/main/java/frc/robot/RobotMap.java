@@ -42,6 +42,10 @@ public class RobotMap {
 
     }
 
+    public static class Carriage {
+        public static final int ACTUATOR = 1; // untested
+    }
+
     public static class Sensors {
         public static final int GYRO = 1; // untested
     }

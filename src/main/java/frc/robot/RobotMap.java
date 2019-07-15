@@ -39,6 +39,10 @@ public class RobotMap {
         public static final int CLIMB_LIM_SWITCH = 4; // untested
     }
 
+    public static class Carriage {
+        public static final int ACTUATOR = 1; // untested
+    }
+
     public static class Sensors {
         public static final int GYRO = 1; // untested
     }

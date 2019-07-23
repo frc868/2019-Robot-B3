@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
@@ -117,7 +118,10 @@ public class Drivetrain {
      * @param y the value of the left joystick's y axis
      * @param x the value of the right joystick's x axis
      */
-    public void arcadeDrive(double y, double x) {
+    public void arcadeDrive() {
+      double y = OI.driver.getRawAxis(RobotMap.Controllers.LY);
+      double x = OI.driver.getRawAxis(RobotMap.Controllers.RX);
+
       y = -1 * deadband(y);
       x = -1 * deadband(x);
 

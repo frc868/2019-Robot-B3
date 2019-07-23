@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 
 /**
- * The class in which we map our driver input to specific tasks on the robot
+ * The class in which we map our driver/operator input to specific tasks on the robot
  * Init should be called once in the robotInit() method in the Robot class
  * Update should be called either in robotPeriodic() or teleopPeriodic()
  * 
@@ -19,8 +19,9 @@ public class OI{
     }
 
     public static void update() {
-        double y = driver.getRawAxis(RobotMap.Controllers.LY);
-        double x = driver.getRawAxis(RobotMap.Controllers.RX);
-        Robot.drivetrain.arcadeDrive(y, x);
+        Robot.drivetrain.arcadeDrive();
+        if(operator.getRawButtonPressed(RobotMap.Controllers.LB)) {
+            Robot.hatchClaw.toggle(); //TODO: Sanity check on implementation of button reading
+        }
     }
 }

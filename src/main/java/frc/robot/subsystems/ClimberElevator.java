@@ -35,6 +35,10 @@ public class ClimberElevator {
     private final boolean ELEVATOR_MODE = false; // switcher mode to activate elevator
     private final boolean BRAKE_MODE = false;
 
+    private static final double
+        INTAKE_BALL = 2.54, LOWER_BALL = 5.02, MIDDLE_BALL = 22.023, UPPER_BALL = 39,
+        LOWER_HATCH = 0.5, MIDDLE_HATCH = 19.66, UPPER_HATCH = 35.85;
+
     public ClimberElevator() {
         // initialize motor controllers
         primary = new CANSparkMax(RobotMap.ClimberElevator.PRIMARY, MotorType.kBrushless);
@@ -94,6 +98,13 @@ public class ClimberElevator {
      */
     public void stop() {
         primary.stopMotor();
+    }
+
+    /**
+     * gets the raw encoder position of the elevator (one tick per motor revolution)
+     */
+    public double getElevatorPosition() {
+        return primary.getEncoder().getPosition();
     }
 
     /**

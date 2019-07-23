@@ -38,6 +38,7 @@ public class ClimberElevator {
     private static final double
         INTAKE_BALL = 2.54, LOWER_BALL = 5.02, MIDDLE_BALL = 22.023, UPPER_BALL = 39,
         LOWER_HATCH = 0.5, MIDDLE_HATCH = 19.66, UPPER_HATCH = 35.85;
+        // target encoder counts of the primary elevator motor at each height necessary for game
 
     public ClimberElevator() {
         // initialize motor controllers

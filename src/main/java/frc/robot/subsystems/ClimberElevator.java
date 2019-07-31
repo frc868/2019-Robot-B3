@@ -12,6 +12,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import frc.robot.RobotMap;
@@ -34,6 +38,11 @@ public class ClimberElevator {
     
     private final boolean ELEVATOR_MODE = false; // switcher mode to activate elevator
     private final boolean BRAKE_MODE = false;
+
+    private static final double kP = 0.00, kI = 0.00, kD = 0.00; // TODO: tune PID constants
+    private PIDController controller; // the pid controller for the elevator
+    private PIDSource source; // source for pid controller
+    private PIDOutput output; // output for pid controller
 
     private static final double
         INTAKE_BALL = 2.54, LOWER_BALL = 5.02, MIDDLE_BALL = 22.023, UPPER_BALL = 39,
@@ -64,6 +73,32 @@ public class ClimberElevator {
         elevTopLim = new IRLimit(RobotMap.ClimberElevator.ELEV_TOP_LIM);
         elevBotLim = new IRLimit(RobotMap.ClimberElevator.ELEV_BOT_LIM);
         climbLimSwitch = new IRLimit(RobotMap.ClimberElevator.CLIMB_LIM_SWITCH);
+
+        source = new PIDSource(){ // sensor source for the elevator pid controller
+        
+            @Override
+            public void setPIDSourceType(PIDSourceType pidSource) {
+                
+            }
+        
+            @Override
+            public double pidGet() {
+                return primary.getEncoder().getPosition(); // not using scaling, just raw counts
+            }
+        
+            @Override
+            public PIDSourceType getPIDSourceType() {
+                return PIDSourceType.kDisplacement; // based on encoder position, not velocity
+            }
+        };
+        output = new PIDOutput(){ // setting motor output to output of pid loop
+        
+            @Override
+            public void pidWrite(double output) {
+                primary.set(output);
+            }
+        };
+        controller = new PIDController(kP, kI, kD, source, output);
     }
 
     /**

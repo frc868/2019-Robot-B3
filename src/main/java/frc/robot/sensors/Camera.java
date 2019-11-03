@@ -27,7 +27,6 @@ public class Camera {
     // TODO: tune these! copied from 2019-Robot
     private static final double kDist = 0.18;
     private static final double kPos = 0.008;
-    private static final double kAngle = 1; 
     private static final double kArea = 0.1;
 
     public Camera() {

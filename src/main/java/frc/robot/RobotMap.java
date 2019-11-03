@@ -1,8 +1,13 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SPI.Port;
+
 /**
- * This is the RobotMap class, which stores constants for use throughout the project.
- * These constants include motor controller constants, controller mappings, etc.
+ * This is the RobotMap class, which stores constants for use throughout the
+ * project. These constants include motor controller constants, controller
+ * mappings, etc.
+ * 
  * @author dri
  */
 
@@ -47,7 +52,7 @@ public class RobotMap {
     }
 
     public static class Sensors {
-        public static final int GYRO = 1; // untested
+        public static final Port GYRO = SPI.Port.kMXP; // untested
     }
 
     public static class Controllers {

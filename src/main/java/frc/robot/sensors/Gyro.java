@@ -35,7 +35,7 @@ public class Gyro {
      * If so, return it. If not, create it and return it.
      */
     public static Gyro getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Gyro();
         }
 

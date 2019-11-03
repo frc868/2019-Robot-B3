@@ -135,6 +135,8 @@ public class ClimberElevator {
             speed = Math.min(Math.max(speed, 0.3), -0.3);
         }
 
+        setElevBrake(speed == 0.0);
+
         primary.set(-speed);
     }
 

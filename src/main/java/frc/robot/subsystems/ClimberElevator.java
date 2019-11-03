@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.sensors.IRLimit;
 
@@ -123,16 +124,14 @@ public class ClimberElevator {
     /**
      * sets speed of the powerpack motors assuming limits are not tripped
      * @param speed % power from -1 to +1
+     * @author dri
      */
     public void setSpeed(double speed) {
         if (elevTopLim.get()) {
-            speed = Math.max(speed, 0);
         }
         else if (elevBotLim.get()) {
-            speed = Math.min(speed, 0);
         }
         else {
-            speed = Math.min(Math.max(speed, 0.3), -0.3);
         }
 
         setElevBrake(speed == 0.0);
@@ -152,6 +151,14 @@ public class ClimberElevator {
      */
     public double getElevatorPosition() {
         return primary.getEncoder().getPosition();
+    }
+
+    /**
+     * gets raw encoder speed of elevator
+     * @return speed of elevator
+     */
+    public double getElevatorSpeed() {
+        return primary.getEncoder().getVelocity();
     }
 
     /**

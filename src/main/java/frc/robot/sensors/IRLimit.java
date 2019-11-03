@@ -36,7 +36,7 @@ public class IRLimit {
         /* Note: If we need to manipulate the data before returning it for use (i.e. invert it),
          *       we can do it here.*/
         
-        return this.limitSwitch.get();
+        return !this.limitSwitch.get();
     }
 
     /**

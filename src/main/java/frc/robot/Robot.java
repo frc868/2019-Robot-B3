@@ -9,17 +9,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.sensors.Camera;
 import frc.robot.subsystems.ClimberElevator;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchClaw;
 
-
-
 public class Robot extends TimedRobot {
-
   public static Drivetrain drivetrain = Drivetrain.getInstance();
   public static HatchClaw hatchClaw = HatchClaw.getInstance();
   public static ClimberElevator climberElevator = ClimberElevator.getInstance();
+  public static Camera camera = Camera.getInstance();
 
   @Override
   public void robotInit() {
@@ -59,5 +58,4 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     Scheduler.getInstance().run();
   }
-
 }

@@ -17,7 +17,6 @@ import frc.robot.RobotMap;
  * @author acr
  */
 public class Gyro {
-
     private static Gyro instance = null;    //This is the instance of our Gyro class.
     private AnalogGyro gyro = null;  //This is the actual Gyro class from WPI which interface with the sensor.
 

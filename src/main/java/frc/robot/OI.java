@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -23,5 +24,18 @@ public class OI{
         if(operator.getRawButtonPressed(RobotMap.Controllers.LB)) {
             Robot.hatchClaw.toggle(); //TODO: Sanity check on implementation of button reading
         }
+        Robot.climberElevator.setSpeed(operator.getRawAxis(RobotMap.Controllers.LY));
+
+        updateSD();
+    }
+
+    /**
+     * Updates the SmartDashboard with values of sensors
+     */
+    public static void updateSD() {
+        SmartDashboard.putBoolean("Climber Top Limit", Robot.climberElevator.getTopLimit());
+        SmartDashboard.putBoolean("Climber Bot Limit", Robot.climberElevator.getBotLimit());
+
+
     }
 }

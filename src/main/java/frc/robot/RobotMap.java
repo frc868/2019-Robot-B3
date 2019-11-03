@@ -66,8 +66,11 @@ public class RobotMap {
         public static final int MENU = 7;
 
         public static final int LX = 0;
-        public static final int LY = 1; // Arcade drive
-        public static final int RX = 4; // Arcade drive
+        // public static final int LY = 1; // Arcade drive
+        // public static final int RX = 4; // Arcade drive
+        public static final int LY = 1; // TODO: delete these
+        public static final int RX = 0; // TODO: delete these
+
         public static final int RY = 5;
         public static final int LT = 2;
         public static final int RT = 3;

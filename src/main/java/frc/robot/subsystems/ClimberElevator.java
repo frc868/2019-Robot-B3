@@ -69,6 +69,7 @@ public class ClimberElevator {
         elevBrake = new Solenoid(RobotMap.PCM, RobotMap.ClimberElevator.ELEV_BRAKE);
         climbBrake = new Solenoid(RobotMap.PCM, RobotMap.ClimberElevator.CLIMB_BRAKE);
 
+
         // initialize limits
         elevTopLim = new IRLimit(RobotMap.ClimberElevator.ELEV_TOP_LIM);
         elevBotLim = new IRLimit(RobotMap.ClimberElevator.ELEV_BOT_LIM);
@@ -124,9 +125,19 @@ public class ClimberElevator {
      * @param speed % power from -1 to +1
      */
     public void setSpeed(double speed) {
-        speed = Math.min(Math.max(speed, -1), 1);
+        if (elevTopLim.get()) {
+            speed = Math.max(speed, 0);
+        }
+        else if (elevBotLim.get()) {
+            speed = Math.min(speed, 0);
+        }
+        else {
+            speed = Math.min(Math.max(speed, 0.3), -0.3);
+        }
 
-        primary.set(speed);
+        setElevBrake(speed == 0.0);
+
+        primary.set(-speed);
     }
 
     /**
@@ -204,6 +215,14 @@ public class ClimberElevator {
      */
     public boolean getClimbBrake() {
         return climbBrake.get() == BRAKE_MODE;
+    }
+
+    public boolean getTopLimit() {
+        return elevTopLim.get();
+    }
+
+    public boolean getBotLimit() {
+        return elevBotLim.get();
     }
 
     /**

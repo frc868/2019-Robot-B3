@@ -74,6 +74,11 @@ public class Manipulator {
         return claw.get() == GRABBED_STATE;
     }
 
+    /**
+     * Run the ball intake based on the values of driver and operator triggers.
+     * Polls the controllers in OI, sets speed accordingly.
+     * Right trigger is intake, left trigger is outtake.
+     */
     public void manualIntake() {
         double rightOperatorTrigger = OI.operator.getRT();
         double leftOperatorTrigger = OI.operator.getLT();
@@ -88,4 +93,6 @@ public class Manipulator {
             - rightDriverTrigger
         );
     }
+
+    
 }

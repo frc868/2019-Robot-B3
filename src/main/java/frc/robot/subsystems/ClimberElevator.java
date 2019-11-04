@@ -227,10 +227,16 @@ public class ClimberElevator {
         return climbBrake.get() == BRAKE_MODE;
     }
 
+    /**
+     * Gets the top elevator limit.
+     */
     public boolean getTopLimit() {
         return elevTopLim.get();
     }
 
+    /**
+     * Gets the bottom elevator limit.
+     */
     public boolean getBotLimit() {
         return elevBotLim.get();
     }

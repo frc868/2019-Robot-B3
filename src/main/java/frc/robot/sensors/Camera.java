@@ -120,7 +120,7 @@ public class Camera {
             double angleValue = 0.0; // the target value we are going to
 
             // y movement on driver controller
-            double y = Helper.deadzone(-OI.driver.getRawAxis(RobotMap.Controllers.LY), 0.03);
+            double y = Helper.deadzone(-OI.driver.getLY(), 0.03);
 
             // powers to set drivetrain to
             double left = y + (posValue + angleValue);

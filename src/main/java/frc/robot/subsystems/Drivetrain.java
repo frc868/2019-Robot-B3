@@ -119,8 +119,8 @@ public class Drivetrain {
      * @param x the value of the right joystick's x axis
      */
     public void arcadeDrive() {
-      double y = OI.driver.getRawAxis(RobotMap.Controllers.LY);
-      double x = OI.driver.getRawAxis(RobotMap.Controllers.RX);
+      double y = OI.driver.getLY();
+      double x = OI.driver.getLY();
 
       y = -1 * deadband(y);
       x = -1 * deadband(x);

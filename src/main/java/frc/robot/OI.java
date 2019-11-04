@@ -1,7 +1,7 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.helpers.ControllerWrapper;
 
 /**
  * The class in which we map our driver/operator input to specific tasks on the robot
@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author dri
  */
 public class OI {
-    public static XboxController driver = new XboxController(RobotMap.Controllers.DRIVER_PORT);
-    public static XboxController operator = new XboxController(RobotMap.Controllers.OPERATOR_PORT);
+    public static ControllerWrapper driver = new ControllerWrapper(RobotMap.Controllers.DRIVER_PORT);
+    public static ControllerWrapper operator = new ControllerWrapper(RobotMap.Controllers.OPERATOR_PORT);
 
     public static void init() {
         Robot.hatchClaw.grab();
@@ -20,10 +20,10 @@ public class OI {
 
     public static void update() {
         Robot.drivetrain.arcadeDrive();
-        if (operator.getRawButtonPressed(RobotMap.Controllers.LB)) {
+        if (operator.bLB.get()) {
             Robot.hatchClaw.toggle();
         }
-        Robot.climberElevator.setSpeed(operator.getRawAxis(RobotMap.Controllers.LY));
+        Robot.climberElevator.setSpeed(operator.getLY());
 
         updateSD();
     }

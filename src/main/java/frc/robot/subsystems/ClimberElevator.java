@@ -49,7 +49,7 @@ public class ClimberElevator {
         LOWER_HATCH = 0.5, MIDDLE_HATCH = 19.66, UPPER_HATCH = 35.85;
         // target encoder counts of the primary elevator motor at each height necessary for game
 
-    public ClimberElevator() {
+    private ClimberElevator() {
         // initialize motor controllers
         primary = new CANSparkMax(RobotMap.ClimberElevator.PRIMARY, MotorType.kBrushless);
         secondary = new CANSparkMax(RobotMap.ClimberElevator.SECONDARY, MotorType.kBrushless);

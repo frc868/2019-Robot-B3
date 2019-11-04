@@ -31,7 +31,7 @@ public class Camera {
     private static final double kPos = 0.008;
     private static final double kArea = 0.1;
 
-    public Camera() {
+    private Camera() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tv = table.getEntry("tv");
         ta = table.getEntry("ta");

@@ -14,13 +14,15 @@ import frc.robot.sensors.Gyro;
 import frc.robot.subsystems.ClimberArms;
 import frc.robot.subsystems.ClimberElevator;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Manipulator;;
+import frc.robot.subsystems.Manipulator;
+import frc.robot.subsystems.Tilt;
 
 public class Robot extends TimedRobot {
   public static Drivetrain drivetrain = Drivetrain.getInstance();
   public static Manipulator manipulator = Manipulator.getInstance();
   public static ClimberArms climberArms = ClimberArms.getInstance();
   public static ClimberElevator climberElevator = ClimberElevator.getInstance();
+  public static Tilt tilt = Tilt.getInstance();
   public static Camera camera = Camera.getInstance();
   public static Gyro gyro = Gyro.getInstance();
 

@@ -31,7 +31,7 @@ public class ClimberElevator {
     private static ClimberElevator instance;
 
     // represents the positions which the elevator can be set to
-    public static enum Position {
+    public static enum ElevatorPosition {
         INTAKE, LOW, MIDDLE, HIGH;
     }
 
@@ -256,9 +256,9 @@ public class ClimberElevator {
 
     /**
      * sets the current elevator position to a setpoint
-     * @param pos a Position representing where to go
+     * @param pos an ElevatorPosition representing where to go
      */
-    public void setPosition(Position pos) {
+    public void setPosition(ElevatorPosition pos) {
         boolean hasHatch = false; // false if ball, true if hatch; defaults to ball
 
         if (Robot.manipulator.isGrabbed()) {

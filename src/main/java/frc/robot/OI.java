@@ -25,6 +25,7 @@ public class OI {
 
         // DRIVER CONTROLS
         driver.bA.whileHeld(() -> Robot.camera.manualFollowVision());
+        driver.bA.whenReleased(() -> Robot.drivetrain.setSpeed(0, 0)); // cancel manualFollowVision
 
         // TODO: B -- TurnToAngleGyro(130)
         // TODO: X -- TurnToAngleGyro(-130)

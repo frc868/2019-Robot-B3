@@ -61,7 +61,7 @@ public class ButtonWrapper extends Trigger {
      * @param func a lambda representing the action
      */
     public void whenPressed(Runnable func) {
-        if (this.get() && !lastState) {
+        if (this.get() && !lastState) { // button is true, lastState is false
             // toggle the state if the state is toggled
             toggleState = !toggleState;
         }
@@ -70,6 +70,24 @@ public class ButtonWrapper extends Trigger {
         lastState = this.get();
 
         // if the rising edge of the button is hit, run the Runnable
+        if (toggleState) {
+            func.run();
+        }
+    }
+
+    /**
+     * Runs "something" on the falling edge of a button press.
+     * @param func a lambda representing the action
+     */
+    public void whenReleased(Runnable func) {
+        if (!this.get() && lastState) { // button is false, lastState is true
+            // the first rule of tautology club is the fundamental law of tautology club
+            toggleState = !toggleState;
+        }
+
+        // store the previous button state
+        lastState = this.get();
+
         if (toggleState) {
             func.run();
         }

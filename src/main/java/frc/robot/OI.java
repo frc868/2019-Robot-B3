@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 /**
  * The class in which we map our driver/operator input to specific tasks on the robot
  * Init should be called once in the robotInit() method in the Robot class

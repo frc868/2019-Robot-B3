@@ -10,7 +10,10 @@ package frc.robot.sensors;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.helpers.Helper;
 
 /**
  * Controls the Limelight camera connected to the robot over NetworkTables.
@@ -84,38 +87,47 @@ public class Camera {
     }
 
     /**
-     * Updates the robot's angle actively to correct for alignment error.
+     * Updates the robot's angle and position actively to correct for alignment error.
+     * Useful for auton.
      */
     public void followVision() {
         if (this.hasTarget()) {
             double area = this.getArea();
             double posError = this.getPosition(); // how far we are from the target
             // the target value we are going to
-            double posValue = posError * kPos * Math.sqrt(this.boundValue((area * kArea), 0, 1));
+            double posValue = posError * kPos * Math.sqrt(Helper.boundValue((area * kArea), 0, 1));
 
             // powers to set drivetrain to
-            double left = this.boundValue(((1/Math.sqrt(area)) * kDist + posValue), -1, 1);
-            double right = this.boundValue(((1/Math.sqrt(area)) * kDist + posValue), -1, 1);
+            double left = Helper.boundValue((1/Math.sqrt(area)) * kDist + posValue);
+            double right = Helper.boundValue((1/Math.sqrt(area)) * kDist + posValue);
 
             Robot.drivetrain.setSpeed(left, right);
         }
     }
 
     /**
-     * Bounds the value between two limits.
-     * @param value the value to bound between the limits
-     * @param lowerLim the lower limit of bounding
-     * @param upperLim the upper limit of bounding
-     * @return the bounded value
+     * Update only the robot's angle actively to correct for alignment error.
+     * Useful for teleop.
      */
-    private double boundValue(double value, double lowerLim, double upperLim) {
-        if (value < lowerLim) {
-            return lowerLim;
-        } else if (value > upperLim) {
-            return upperLim;
-        } else {
-            return value;
-        } 
+    public void manualFollowVision() {
+        if (this.hasTarget()) {
+            double area = this.getArea();
+            double posError = this.getPosition(); // how far we are from the target
+            // the target value we are going to
+            double posValue = posError * kPos * Math.sqrt(Helper.boundValue((area * kArea), 0, 1));
+
+            double angleError = this.getAngle(); // how disoriented we are from the target
+            double angleValue = 0.0; // the target value we are going to
+
+            // y movement on driver controller
+            double y = Helper.deadzone(-OI.driver.getRawAxis(RobotMap.Controllers.LY), 0.03);
+
+            // powers to set drivetrain to
+            double left = y + (posValue + angleValue);
+            double right = y - (posValue + angleValue);
+
+            Robot.drivetrain.setSpeed(left, right);
+        }
     }
 
     /**

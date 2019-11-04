@@ -27,12 +27,22 @@ public class Helper {
      * @author lm
      */
     public static double boundValue(double value) {
-        if (value > 1.0) {
-            return 1.0;
+        return boundValue(value, -1, 1);
+    }
+
+    /**
+     * Creates a virtual deadzone. 
+     * If a value is between the lower max and upper min, it will output zero. 
+     * If a value is outside this range, the original value will be outputted.
+     * @param value value to deadzone
+     * @param size the size of the deadzone
+     * @return the "deadzoned" version of the input value
+     */
+    public static double deadzone(double value, double size) {
+        if (Math.abs(value) < Math.abs(size)) {
+            return 0;
+        } else {
+            return value;
         }
-        if (value < -1.0) {
-            return -1.0;
-        }
-        return value; 
     }
 }

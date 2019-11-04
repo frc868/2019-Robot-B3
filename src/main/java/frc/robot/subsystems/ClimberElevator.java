@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.sensors.IRLimit;
@@ -39,8 +38,7 @@ public class ClimberElevator {
     private CANSparkMax primary, secondary; // drive motors
     private WPI_TalonSRX footMotor; // the bottom motor on the foot to drive forward
     private Solenoid switcher, elevBrake, climbBrake; // switches between climb/elevator, brakes
-    private IRLimit elevTopLim, elevBotLim, climbTopLim, climbBotLim, climbLimSwitch;
-    private Ultrasonic leftHSensor, rightHSensor;
+    private IRLimit elevTopLim, elevBotLim, climbLimSwitch;
     
     private final boolean ELEVATOR_MODE = false; // switcher mode to activate elevator
     private final boolean BRAKE_MODE = false;
@@ -239,6 +237,13 @@ public class ClimberElevator {
      */
     public boolean getBotLimit() {
         return elevBotLim.get();
+    }
+
+    /**
+     * Gets the climber's limit switch.
+     */
+    public boolean getClimbLimit() {
+        return !climbLimSwitch.get();
     }
 
     /**

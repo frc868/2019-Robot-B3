@@ -21,12 +21,12 @@ import frc.robot.RobotMap;
 public class Drivetrain {
     // These are the motor controllers which we are using
     private CANSparkMax l_primary, l_secondary, l_tertiary, r_primary, r_secondary, r_tertiary;
-    private SpeedControllerGroup leftGroup; //All of the left motor controllers grouped together
-    private SpeedControllerGroup rightGroup; //All of the right motor controllers grouped together
+    private SpeedControllerGroup leftGroup; // All of the left motor controllers grouped together
+    private SpeedControllerGroup rightGroup; // All of the right motor controllers grouped together
 
-    private static Drivetrain instance; //This is the instance of the drivetrain class
+    private static Drivetrain instance; // This is the instance of the drivetrain class
 
-    private static final double DEADZONE_RANGE = 0.1; //Bounds of the "dead zone" within joystick
+    private static final double DEADZONE_RANGE = 0.1; // Bounds of the "dead zone" within joystick
     private static final double INCHES_PER_TICK = 2.15812;
 
     private Drivetrain() {
@@ -66,9 +66,6 @@ public class Drivetrain {
      * @param speed speed to set right side of robot to
      */
     public void setLeftSpeed(double speed) {
-        // l_primary.set(speed);
-        // l_secondary.set(speed);
-        // l_tertiary.set(speed);
         leftGroup.set(speed);
     }
 
@@ -77,9 +74,6 @@ public class Drivetrain {
      * @param speed speed to set right side of robot to
      */
     public void setRightSpeed(double speed) {
-        // r_primary.set(speed);
-        // r_secondary.set(speed);
-        // r_tertiary.set(speed);
         rightGroup.set(speed);
     }
     /**

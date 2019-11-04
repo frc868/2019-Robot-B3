@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.sensors.Camera;
+import frc.robot.sensors.Gyro;
 import frc.robot.subsystems.ClimberArms;
 import frc.robot.subsystems.ClimberElevator;
 import frc.robot.subsystems.Drivetrain;
@@ -21,6 +22,7 @@ public class Robot extends TimedRobot {
   public static ClimberArms climberArms = ClimberArms.getInstance();
   public static ClimberElevator climberElevator = ClimberElevator.getInstance();
   public static Camera camera = Camera.getInstance();
+  public static Gyro gyro = Gyro.getInstance();
 
   @Override
   public void robotInit() {

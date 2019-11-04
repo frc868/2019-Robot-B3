@@ -37,7 +37,6 @@ public class ButtonWrapper extends Trigger {
      * You're *probably* working on POV 0.
      */
     public ButtonWrapper(XboxController controller, int angle, int povNumber) {
-        // this is kinda redundant since if you aren't passing true, oops! you messed up!
         this.isPOV = true;
         this.controller = controller;
         this.id = povNumber;

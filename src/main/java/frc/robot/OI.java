@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.TurnToAngleGyro;
 import frc.robot.helpers.ControllerWrapper;
 
 /**
@@ -13,6 +14,8 @@ import frc.robot.helpers.ControllerWrapper;
 public class OI {
     public static ControllerWrapper driver = new ControllerWrapper(RobotMap.Controllers.DRIVER_PORT);
     public static ControllerWrapper operator = new ControllerWrapper(RobotMap.Controllers.OPERATOR_PORT);
+
+    public static TurnToAngleGyro turnTo = TurnToAngleGyro.getInstance();
 
     public static void init() {
         Robot.manipulator.grab();
@@ -27,10 +30,14 @@ public class OI {
         driver.bA.whileHeld(() -> Robot.camera.manualFollowVision());
         driver.bA.whenReleased(() -> Robot.drivetrain.setSpeed(0, 0)); // cancel manualFollowVision
 
-        // TODO: B -- TurnToAngleGyro(130)
-        // TODO: X -- TurnToAngleGyro(-130)
-        // TODO: POV W -- TurnToAngleGyro(-90)
-        // TODO: POV E -- TurnToAngleGyro(90)
+        driver.bB.whenPressed(() -> turnTo.run(130));
+        driver.bB.whenReleased(() -> turnTo.stop());
+        driver.bX.whenPressed(() -> turnTo.run(-130));
+        driver.bX.whenReleased(() -> turnTo.stop());
+        driver.dW.whenPressed(() -> turnTo.run(-90));
+        driver.dW.whenReleased(() -> turnTo.stop());
+        driver.dE.whenPressed(() -> turnTo.run(90));
+        driver.dE.whenReleased(() -> turnTo.stop());
 
         driver.bLB.whenPressed(() -> Robot.manipulator.toggle());
 

@@ -77,9 +77,8 @@ public class TurnToAngleGyro {
             this.start();
         }
 
-        Robot.gyro.reset(); // reinitializes the gyro to zero before running pidGet()
-
-        pid.setSetpoint(angle);
+        double currentAngle = Robot.gyro.getAngle(); // relative, without gyro reset
+        pid.setSetpoint(currentAngle + angle);
     }
 
     /**

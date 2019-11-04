@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * 
  * @author dri
  */
-public class OI{
+public class OI {
     public static XboxController driver = new XboxController(RobotMap.Controllers.DRIVER_PORT);
     public static XboxController operator = new XboxController(RobotMap.Controllers.OPERATOR_PORT);
 
@@ -21,7 +21,7 @@ public class OI{
 
     public static void update() {
         Robot.drivetrain.arcadeDrive();
-        if(operator.getRawButtonPressed(RobotMap.Controllers.LB)) {
+        if (operator.getRawButtonPressed(RobotMap.Controllers.LB)) {
             Robot.hatchClaw.toggle();
         }
         Robot.climberElevator.setSpeed(operator.getRawAxis(RobotMap.Controllers.LY));

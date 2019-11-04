@@ -12,7 +12,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.helpers.Helper;
 
 /**
@@ -116,15 +115,12 @@ public class Camera {
             // the target value we are going to
             double posValue = posError * kPos * Math.sqrt(Helper.boundValue((area * kArea), 0, 1));
 
-            double angleError = this.getAngle(); // how disoriented we are from the target
-            double angleValue = 0.0; // the target value we are going to
-
             // y movement on driver controller
             double y = Helper.deadzone(-OI.driver.getLY(), 0.03);
 
             // powers to set drivetrain to
-            double left = y + (posValue + angleValue);
-            double right = y - (posValue + angleValue);
+            double left = y + posValue;
+            double right = y - posValue;
 
             Robot.drivetrain.setSpeed(left, right);
         }

@@ -16,13 +16,13 @@ public class OI {
     public static XboxController operator = new XboxController(RobotMap.Controllers.OPERATOR_PORT);
 
     public static void init() {
-        Robot.hatchClaw.grab();
+        Robot.manipulator.grab();
     }
 
     public static void update() {
         Robot.drivetrain.arcadeDrive();
         if (operator.getRawButtonPressed(RobotMap.Controllers.LB)) {
-            Robot.hatchClaw.toggle();
+            Robot.manipulator.toggle();
         }
         Robot.climberElevator.setSpeed(operator.getRawAxis(RobotMap.Controllers.LY));
 
@@ -35,7 +35,5 @@ public class OI {
     public static void updateSD() {
         SmartDashboard.putBoolean("Climber Top Limit", Robot.climberElevator.getTopLimit());
         SmartDashboard.putBoolean("Climber Bot Limit", Robot.climberElevator.getBotLimit());
-
-
     }
 }

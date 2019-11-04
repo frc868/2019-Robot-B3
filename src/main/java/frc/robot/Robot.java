@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.sensors.Camera;
 import frc.robot.subsystems.ClimberElevator;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.HatchClaw;
+import frc.robot.subsystems.Manipulator;;
 
 public class Robot extends TimedRobot {
   public static Drivetrain drivetrain = Drivetrain.getInstance();
-  public static HatchClaw hatchClaw = HatchClaw.getInstance();
+  public static Manipulator manipulator = Manipulator.getInstance();
   public static ClimberElevator climberElevator = ClimberElevator.getInstance();
   public static Camera camera = Camera.getInstance();
 

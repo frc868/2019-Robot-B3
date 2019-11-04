@@ -71,6 +71,7 @@ public class ButtonWrapper extends Trigger {
         // if the rising edge of the button is hit, run the Runnable
         if (toggleState) {
             func.run();
+            toggleState = !toggleState;
         }
     }
 
@@ -89,6 +90,7 @@ public class ButtonWrapper extends Trigger {
 
         if (toggleState) {
             func.run();
+            toggleState = !toggleState;
         }
     }
 
@@ -102,5 +104,21 @@ public class ButtonWrapper extends Trigger {
         if (this.get()) {
             func.run();
         }
+    }
+
+    public void setToggleState(boolean toggleState) {
+        this.toggleState = toggleState;
+    }
+
+    public void setLastState(boolean lastState) {
+        this.lastState = lastState;
+    }
+
+    public boolean getToggleState() {
+        return this.toggleState;
+    }
+
+    public boolean getLastState() {
+        return this.lastState;
     }
 }

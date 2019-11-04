@@ -47,4 +47,16 @@ public class Helper {
             return value;
         }
     }
+
+    // this is a comment
+    /**
+     * Takes the value and returns the value to the third power
+     * @param value value to be cubed
+     * @return the third power of value
+     * @author SV
+     * @author JW
+     */
+    public static double desensitize(double value) {
+        return Math.pow(value, 3);
+    } 
 }

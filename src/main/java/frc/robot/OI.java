@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.TurnToAngleGyro;
 import frc.robot.helpers.ControllerWrapper;
+import frc.robot.subsystems.ClimberElevator.Position;
 
 /**
  * The class in which we map our driver/operator input to specific tasks on the robot
@@ -49,8 +50,13 @@ public class OI {
         // TODO: Start -- ManualClimber
 
         // OPERATOR CONTROLS
+        operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(Position.HIGH));
+        operator.bB.whenPressed(() -> Robot.climberElevator.setPosition(Position.MIDDLE));
+        operator.bY.whenPressed(() -> Robot.climberElevator.setPosition(Position.LOW));
+
         operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
 
+        // TODO: this should be bound with a trigger
         Robot.climberElevator.setSpeed(operator.getLY());
 
         updateSD();

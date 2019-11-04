@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.sensors.IRLimit;
 
@@ -30,6 +31,11 @@ import frc.robot.sensors.IRLimit;
 public class ClimberElevator {
     private static ClimberElevator instance;
 
+    // represents the positions which the elevator can be set to
+    public static enum Position {
+        INTAKE, LOW, MIDDLE, HIGH;
+    }
+
     private CANSparkMax primary, secondary; // drive motors
     private WPI_TalonSRX footMotor; // the bottom motor on the foot to drive forward
     private Solenoid switcher, elevBrake, climbBrake; // switches between climb/elevator, brakes
@@ -40,9 +46,9 @@ public class ClimberElevator {
     private final boolean BRAKE_MODE = false;
 
     private static final double kP = 0.00, kI = 0.00, kD = 0.00; // TODO: tune PID constants
-    private PIDController controller; // the pid controller for the elevator
-    private PIDSource source; // source for pid controller
-    private PIDOutput output; // output for pid controller
+    private PIDController pid; // the pid pid for the elevator
+    private PIDSource pidSource; // source for pid pid
+    private PIDOutput pidOutput; // output for pid pid
 
     private static final double
         INTAKE_BALL = 2.54, LOWER_BALL = 5.02, MIDDLE_BALL = 22.023, UPPER_BALL = 39,
@@ -50,7 +56,7 @@ public class ClimberElevator {
         // target encoder counts of the primary elevator motor at each height necessary for game
 
     private ClimberElevator() {
-        // initialize motor controllers
+        // initialize motor pids
         primary = new CANSparkMax(RobotMap.ClimberElevator.PRIMARY, MotorType.kBrushless);
         secondary = new CANSparkMax(RobotMap.ClimberElevator.SECONDARY, MotorType.kBrushless);
 
@@ -75,11 +81,10 @@ public class ClimberElevator {
         elevBotLim = new IRLimit(RobotMap.ClimberElevator.ELEV_BOT_LIM);
         climbLimSwitch = new IRLimit(RobotMap.ClimberElevator.CLIMB_LIM_SWITCH);
 
-        source = new PIDSource(){ // sensor source for the elevator pid controller
-        
+        pidSource = new PIDSource() { // sensor source for the elevator pid pid
             @Override
             public void setPIDSourceType(PIDSourceType pidSource) {
-                
+                // not used
             }
         
             @Override
@@ -92,14 +97,13 @@ public class ClimberElevator {
                 return PIDSourceType.kDisplacement; // based on encoder position, not velocity
             }
         };
-        output = new PIDOutput(){ // setting motor output to output of pid loop
-        
+        pidOutput = new PIDOutput() { // setting motor output to output of pid loop
             @Override
-            public void pidWrite(double output) {
-                primary.set(output);
+            public void pidWrite(double pidOutput) {
+                primary.set(pidOutput);
             }
         };
-        controller = new PIDController(kP, kI, kD, source, output);
+        pid = new PIDController(kP, kI, kD, pidSource, pidOutput);
     }
 
     /**
@@ -237,6 +241,65 @@ public class ClimberElevator {
      */
     public void driveFoot(double speed) {
         footMotor.set(speed);
+    }
+
+    /**
+     * sets the current elevator position to a setpoint
+     * @param pos a Position representing where to go
+     */
+    public void setPosition(Position pos) {
+        boolean hasHatch = false; // false if ball, true if hatch; defaults to ball
+
+        if (Robot.manipulator.isGrabbed()) {
+            hasHatch = true;
+        }
+
+        if (!pid.isEnabled()) {
+            startPid();
+        }
+
+        switch (pos) {
+            case INTAKE:
+                pid.setSetpoint(INTAKE_BALL);
+                break;
+            case LOW: 
+                if (hasHatch) {
+                    pid.setSetpoint(LOWER_HATCH);
+                } else {
+                    pid.setSetpoint(LOWER_BALL);
+                }
+                break;
+            case MIDDLE: 
+                if (hasHatch) {
+                    pid.setSetpoint(MIDDLE_HATCH);
+                } else {
+                    pid.setSetpoint(MIDDLE_BALL);
+                }
+                break;
+            case HIGH:
+                if (hasHatch) {
+                    pid.setSetpoint(UPPER_HATCH);
+                } else {
+                    pid.setSetpoint(UPPER_BALL);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Starts the PID controller.
+     */
+    public void startPid() {
+        pid.enable();
+    }
+
+    /**
+     * Stops the PID controller.
+     */
+    public void stopPid() {
+        pid.disable();
     }
    
     /**

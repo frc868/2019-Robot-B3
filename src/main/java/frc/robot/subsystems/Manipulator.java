@@ -12,21 +12,27 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.OI;
 import frc.robot.RobotMap;
+import frc.robot.sensors.IRLimit;
 
 /**
- * Add your docs here.
+ * The manipulator class. Governs both the hatch and ball intakes.
+ * 
+ * @author dri
  */
 public class Manipulator {
-
     private static Manipulator instance;
     private Solenoid claw;
     private WPI_TalonSRX ballIntake;
+    private IRLimit ballDetect;
 
     public static final boolean GRABBED_STATE = false; // TODO: test on/off state solenoid
+    public static final boolean BALL_DETECTED_STATE = true; // state the IR limit is in when the ball is in
 
     private Manipulator() {
-        claw = new Solenoid(RobotMap.Carriage.ACTUATOR);
-        ballIntake = new WPI_TalonSRX(RobotMap.Carriage.INTAKE_MOTOR);
+        claw = new Solenoid(RobotMap.Manipulator.ACTUATOR);
+        ballIntake = new WPI_TalonSRX(RobotMap.Manipulator.INTAKE_MOTOR);
+        ballDetect = new IRLimit(RobotMap.Manipulator.BALL_IR_LIMIT);
+
         claw.set(GRABBED_STATE);
     }
 
@@ -94,5 +100,11 @@ public class Manipulator {
         );
     }
 
-    
+    /**
+     * Checks if the ball has been intaked using the limit switch.
+     * @author hrl
+     */
+    public boolean isBallDetected() {
+        return ballDetect.get() == BALL_DETECTED_STATE;
+    }
 }

@@ -19,36 +19,34 @@ import frc.robot.RobotMap;
  * @author dri
  */
 public class Drivetrain {
-  // These are the motor controllers which we are using
-  private CANSparkMax
-    l_primary, l_secondary, l_tertiary, r_primary, r_secondary, r_tertiary;
-  private SpeedControllerGroup leftGroup; //All of the left motor controllers grouped together
-  private SpeedControllerGroup rightGroup; //All of the right motor controllers grouped together
+    // These are the motor controllers which we are using
+    private CANSparkMax l_primary, l_secondary, l_tertiary, r_primary, r_secondary, r_tertiary;
+    private SpeedControllerGroup leftGroup; //All of the left motor controllers grouped together
+    private SpeedControllerGroup rightGroup; //All of the right motor controllers grouped together
 
-  private static Drivetrain instance; //This is the instance of the drivetrain class
+    private static Drivetrain instance; //This is the instance of the drivetrain class
 
-  private static final double DEADZONE_RANGE = 0.1; //Bounds of the "dead zone" within joystick
-  private static final double INCHES_PER_TICK = 2.15812;
+    private static final double DEADZONE_RANGE = 0.1; //Bounds of the "dead zone" within joystick
+    private static final double INCHES_PER_TICK = 2.15812;
 
     private Drivetrain() {
-      l_primary = new CANSparkMax(RobotMap.Drivetrain.LEFT_PRIMARY, MotorType.kBrushless);
-      l_secondary = new CANSparkMax(RobotMap.Drivetrain.LEFT_SECONDARY, MotorType.kBrushless);
-      l_tertiary = new CANSparkMax(RobotMap.Drivetrain.LEFT_TERTIARY, MotorType.kBrushless);
-      r_primary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_PRIMARY, MotorType.kBrushless);
-      r_secondary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_SECONDARY, MotorType.kBrushless);
-      r_tertiary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_TERTIARY, MotorType.kBrushless);
+        l_primary = new CANSparkMax(RobotMap.Drivetrain.LEFT_PRIMARY, MotorType.kBrushless);
+        l_secondary = new CANSparkMax(RobotMap.Drivetrain.LEFT_SECONDARY, MotorType.kBrushless);
+        l_tertiary = new CANSparkMax(RobotMap.Drivetrain.LEFT_TERTIARY, MotorType.kBrushless);
+        r_primary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_PRIMARY, MotorType.kBrushless);
+        r_secondary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_SECONDARY, MotorType.kBrushless);
+        r_tertiary = new CANSparkMax(RobotMap.Drivetrain.RIGHT_TERTIARY, MotorType.kBrushless);
 
-      leftGroup = new SpeedControllerGroup(l_primary,l_secondary,l_tertiary);
-      rightGroup = new SpeedControllerGroup(r_primary,r_secondary,r_tertiary);
+        leftGroup = new SpeedControllerGroup(l_primary,l_secondary,l_tertiary);
+        rightGroup = new SpeedControllerGroup(r_primary,r_secondary,r_tertiary);
 
-      leftGroup.setInverted(false); // TODO: test inversions (copied from 2019-robot, but can never be too safe)
-      rightGroup.setInverted(true);
+        leftGroup.setInverted(false); // TODO: test inversions (copied from 2019-robot, but can never be too safe)
+        rightGroup.setInverted(true);
 
-      l_primary.getEncoder()
-        .setPositionConversionFactor(INCHES_PER_TICK); // set scale for encoder ticks to inches
-      r_primary.getEncoder()
-        .setPositionConversionFactor(INCHES_PER_TICK);
-
+        l_primary.getEncoder()
+            .setPositionConversionFactor(INCHES_PER_TICK); // set scale for encoder ticks to inches
+        r_primary.getEncoder()
+            .setPositionConversionFactor(INCHES_PER_TICK);
     }
 
     /**
@@ -57,10 +55,10 @@ public class Drivetrain {
      * @return instance of the drivetrain class
      */
     public static Drivetrain getInstance() {
-      if (instance == null) {
-        instance = new Drivetrain();
-      }
-      return instance;
+        if (instance == null) {
+            instance = new Drivetrain();
+        }
+        return instance;
     }
 
     /**
@@ -68,10 +66,10 @@ public class Drivetrain {
      * @param speed speed to set right side of robot to
      */
     public void setLeftSpeed(double speed) {
-      // l_primary.set(speed);
-      // l_secondary.set(speed);
-      // l_tertiary.set(speed);
-      leftGroup.set(speed);
+        // l_primary.set(speed);
+        // l_secondary.set(speed);
+        // l_tertiary.set(speed);
+        leftGroup.set(speed);
     }
 
     /**
@@ -79,10 +77,10 @@ public class Drivetrain {
      * @param speed speed to set right side of robot to
      */
     public void setRightSpeed(double speed) {
-      // r_primary.set(speed);
-      // r_secondary.set(speed);
-      // r_tertiary.set(speed);
-      rightGroup.set(speed);
+        // r_primary.set(speed);
+        // r_secondary.set(speed);
+        // r_tertiary.set(speed);
+        rightGroup.set(speed);
     }
     /**
      * Sets both sides of drivetrain to specified speeds (between 0 and 1)
@@ -90,8 +88,8 @@ public class Drivetrain {
      * @param rightSpeed speed to set right side of robot to
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
-      setLeftSpeed(leftSpeed);
-      setRightSpeed(rightSpeed);
+        setLeftSpeed(leftSpeed);
+        setRightSpeed(rightSpeed);
     }
 
     /**
@@ -101,31 +99,38 @@ public class Drivetrain {
      * @param endPower the desired start speed from -1 to 1
      */
     public void driveStraight(double targetDist, double startPower, double endPower) {
-      double pGain = 0.5;
-      double initialDist = getAveragePosition();
-      double distanceToTarget = Math.abs(targetDist) - Math.abs(getAveragePosition() - initialDist);
+        double pGain = 0.5;
+        double initialDist = getAveragePosition();
+        double distanceToTarget = Math.abs(targetDist) - Math.abs(getAveragePosition() - initialDist);
 
-      double targetSpeed = pGain*(startPower + ((endPower - startPower) / distanceToTarget));
+        double targetSpeed = pGain*(startPower + ((endPower - startPower) / distanceToTarget));
 
-      if(distanceToTarget > 0) {
-        setSpeed(targetSpeed, targetSpeed); // TODO: code sanity check
-      }
+        if(distanceToTarget > 0) {
+            setSpeed(targetSpeed, targetSpeed); // TODO: code sanity check
+        }
     }
 
     /**
      * Arcade drive with movement in y direction controlled by left joystick and movement in x
      * direction controlled by right joystick
-     * @param y the value of the left joystick's y axis
-     * @param x the value of the right joystick's x axis
+     * @param speed The speed to run motors at -- useful for training
+     */
+    public void arcadeDrive(double speed) {
+        double y = OI.driver.getLY();
+        double x = OI.driver.getLY();
+
+        y = -1 * deadband(y) * speed;
+        x = -1 * deadband(x) * speed;
+
+        setSpeed(y+x, y-x);
+    }
+
+    /**
+     * Default arcade drive with full speed
+     * @author hrl
      */
     public void arcadeDrive() {
-      double y = OI.driver.getLY();
-      double x = OI.driver.getLY();
-
-      y = -1 * deadband(y);
-      x = -1 * deadband(x);
-
-      setSpeed(y+x, y-x);
+        arcadeDrive(1);
     }
 
     /**
@@ -133,7 +138,7 @@ public class Drivetrain {
      * @return left encoder position in inches
      */
     public double getLeftPosition() {
-      return l_primary.getEncoder().getPosition();
+        return l_primary.getEncoder().getPosition();
     }
 
     /**
@@ -141,7 +146,7 @@ public class Drivetrain {
      * @return right encoder position in inches
      */
     public double getRightPosition() {
-      return r_primary.getEncoder().getPosition();
+        return r_primary.getEncoder().getPosition();
     }
 
     /**
@@ -149,12 +154,12 @@ public class Drivetrain {
      * @return average drivetrain encoder position in inches
      */
     public double getAveragePosition() {
-      return (getLeftPosition() + getRightPosition()) / 2;
+        return (getLeftPosition() + getRightPosition()) / 2;
     }
 
     public void resetEncoderPositions() {
-      l_primary.getEncoder().setPosition(0);
-      r_primary.getEncoder().setPosition(0);
+        l_primary.getEncoder().setPosition(0);
+        r_primary.getEncoder().setPosition(0);
     }
 
     /** 
@@ -162,7 +167,6 @@ public class Drivetrain {
      * @return the value of the joystick if it is outside the range of the deadband
      */
     public static double deadband(double value) {
-      return Math.abs(value) < DEADZONE_RANGE ? 0 : value;
-  }
-
+        return Math.abs(value) < DEADZONE_RANGE ? 0 : value;
+    }
 }

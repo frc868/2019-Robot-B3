@@ -20,20 +20,20 @@ public class RobotMap {
     public static int PCM = 0;
 
     public static class Drivetrain {
-        public static final int LEFT_PRIMARY = 23; // untested
-        public static final int LEFT_SECONDARY = 24; // untested
-        public static final int LEFT_TERTIARY = 25; // untested
+        public static final int LEFT_PRIMARY = 23;
+        public static final int LEFT_SECONDARY = 24;
+        public static final int LEFT_TERTIARY = 25;
 
-        public static final int RIGHT_PRIMARY = 10; // untested
-        public static final int RIGHT_SECONDARY = 11; // untested
-        public static final int RIGHT_TERTIARY = 12; // untested
+        public static final int RIGHT_PRIMARY = 10;
+        public static final int RIGHT_SECONDARY = 11;
+        public static final int RIGHT_TERTIARY = 12;
     }
 
     public static class ClimberElevator {
         public static final int PRIMARY = 13;
         public static final int SECONDARY = 22;
-        public static final boolean PRIMARY_IS_INVERTED = false; // untested
-        public static final boolean SECONDARY_IS_INVERTED = true; // untested
+        public static final boolean PRIMARY_IS_INVERTED = false;
+        public static final boolean SECONDARY_IS_INVERTED = true;
 
         public static final int FOOT_MOTOR = 21; //untested
 
@@ -48,7 +48,8 @@ public class RobotMap {
     }
 
     public static class Carriage {
-        public static final int ACTUATOR = 1; // untested
+        public static final int ACTUATOR = 1;
+        public static final int INTAKE_MOTOR = 14; // untested
     }
 
     public static class Sensors {

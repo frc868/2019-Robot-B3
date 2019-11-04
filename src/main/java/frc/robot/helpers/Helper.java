@@ -9,6 +9,7 @@ public class Helper {
      * @param max The maximum acceptable value
      * @return The sanity value after check
      * @author lm
+     * @author ic
      */
     public static double boundValue(double value, double min, double max) {
         if (value > max) {
@@ -25,6 +26,7 @@ public class Helper {
      * @param value The value to check
      * @return The sanity value after check
      * @author lm
+     * @author ic
      */
     public static double boundValue(double value) {
         return boundValue(value, -1, 1);

@@ -10,8 +10,7 @@ package frc.robot.helpers;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj.buttons.Button;
 import frc.robot.RobotMap;
 
 /**
@@ -28,8 +27,8 @@ import frc.robot.RobotMap;
  */
 public class ControllerWrapper {
     private XboxController controller;
-    public JoystickButton bA, bB, bX, bY, bRB, bLB, bRSTK, bLSTK, bSTART, bMENU; // read: "button Menu"
-    public POVButton dN, dE, dS, dW, dNE, dNW, dSE, dSW; // read: "d-pad North"
+    public ButtonWrapper bA, bB, bX, bY, bRB, bLB, bRSTK, bLSTK, bSTART, bMENU; // read: "button Menu"
+    public ButtonWrapper dN, dE, dS, dW, dNE, dNW, dSE, dSW; // read: "d-pad North"
 
     private Timer timer; // used for rumble timing
     private final double RUMBLE_DELAY = 0.3;
@@ -38,29 +37,29 @@ public class ControllerWrapper {
         controller = new XboxController(port);
 
         // face buttons
-        bA = new JoystickButton(this.controller, RobotMap.Controllers.A);
-        bB = new JoystickButton(this.controller, RobotMap.Controllers.B);
-        bX = new JoystickButton(this.controller, RobotMap.Controllers.X);
-        bY = new JoystickButton(this.controller, RobotMap.Controllers.Y);
-        bSTART = new JoystickButton(this.controller, RobotMap.Controllers.START);
-        bMENU = new JoystickButton(this.controller, RobotMap.Controllers.MENU);
+        bA = new ButtonWrapper(this.controller, RobotMap.Controllers.A);
+        bB = new ButtonWrapper(this.controller, RobotMap.Controllers.B);
+        bX = new ButtonWrapper(this.controller, RobotMap.Controllers.X);
+        bY = new ButtonWrapper(this.controller, RobotMap.Controllers.Y);
+        bSTART = new ButtonWrapper(this.controller, RobotMap.Controllers.START);
+        bMENU = new ButtonWrapper(this.controller, RobotMap.Controllers.MENU);
 
         // misc buttons
-        bRB = new JoystickButton(this.controller, RobotMap.Controllers.RB);
-        bLB = new JoystickButton(this.controller, RobotMap.Controllers.LB);
-        bRSTK = new JoystickButton(this.controller, RobotMap.Controllers.RSTK);
-        bLSTK = new JoystickButton(this.controller, RobotMap.Controllers.LSTK);
+        bRB = new ButtonWrapper(this.controller, RobotMap.Controllers.RB);
+        bLB = new ButtonWrapper(this.controller, RobotMap.Controllers.LB);
+        bRSTK = new ButtonWrapper(this.controller, RobotMap.Controllers.RSTK);
+        bLSTK = new ButtonWrapper(this.controller, RobotMap.Controllers.LSTK);
 
         // d-pad/"POV" buttons
         // reads angle value of the combined d-pad
-        dN = new POVButton(this.controller, 0);
-        dNE = new POVButton(this.controller, 45);
-        dE = new POVButton(this.controller, 90);
-        dSE = new POVButton(this.controller, 135);
-        dS = new POVButton(this.controller, 180);
-        dSW = new POVButton(this.controller, 225);
-        dW = new POVButton(this.controller, 270);
-        dNW = new POVButton(this.controller, 315);
+        dN = new ButtonWrapper(this.controller, 0, RobotMap.Controllers.POV);
+        dNE = new ButtonWrapper(this.controller, 45, RobotMap.Controllers.POV);
+        dE = new ButtonWrapper(this.controller, 90, RobotMap.Controllers.POV);
+        dSE = new ButtonWrapper(this.controller, 135, RobotMap.Controllers.POV);
+        dS = new ButtonWrapper(this.controller, 180, RobotMap.Controllers.POV);
+        dSW = new ButtonWrapper(this.controller, 225, RobotMap.Controllers.POV);
+        dW = new ButtonWrapper(this.controller, 270, RobotMap.Controllers.POV);
+        dNW = new ButtonWrapper(this.controller, 315, RobotMap.Controllers.POV);
     }
 
     /**

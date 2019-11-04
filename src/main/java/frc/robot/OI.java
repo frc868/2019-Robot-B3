@@ -20,9 +20,7 @@ public class OI {
 
     public static void update() {
         Robot.drivetrain.arcadeDrive();
-        if (operator.bLB.get()) {
-            Robot.manipulator.toggle();
-        }
+        operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
         Robot.climberElevator.setSpeed(operator.getLY());
 
         updateSD();

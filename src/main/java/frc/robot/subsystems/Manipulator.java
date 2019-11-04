@@ -74,7 +74,7 @@ public class Manipulator {
         return claw.get() == GRABBED_STATE;
     }
 
-    public void manualIntake () {
+    public void manualIntake() {
         double rightOperatorTrigger = OI.operator.getRT();
         double leftOperatorTrigger = OI.operator.getLT();
 

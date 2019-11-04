@@ -19,8 +19,30 @@ public class OI {
     }
 
     public static void update() {
+        // GENERAL CONTROLS/CONTROL METHODS
         Robot.drivetrain.arcadeDrive();
+        Robot.manipulator.manualIntake();
+
+        // DRIVER CONTROLS
+        driver.bA.whileHeld(() -> Robot.camera.manualFollowVision());
+
+        // TODO: B -- TurnToAngleGyro(130)
+        // TODO: X -- TurnToAngleGyro(-130)
+        // TODO: POV W -- TurnToAngleGyro(-90)
+        // TODO: POV E -- TurnToAngleGyro(90)
+
+        driver.bLB.whenPressed(() -> Robot.manipulator.toggle());
+
+        driver.bMENU.whenPressed(() -> {
+            Robot.climberArms.deploy();
+            // TODO: Set tilt position "Upper"
+            Robot.manipulator.grab();
+        });
+        // TODO: Start -- ManualClimber
+
+        // OPERATOR CONTROLS
         operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
+
         Robot.climberElevator.setSpeed(operator.getLY());
 
         updateSD();

@@ -10,7 +10,6 @@ package frc.robot.helpers;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import edu.wpi.first.wpilibj.buttons.Button;
 import frc.robot.RobotMap;
 
 /**

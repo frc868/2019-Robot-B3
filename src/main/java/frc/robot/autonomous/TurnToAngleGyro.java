@@ -20,7 +20,7 @@ import frc.robot.Robot;
  * @author hrl
  */
 public class TurnToAngleGyro {
-    private static final TurnToAngleGyro instance;
+    private static TurnToAngleGyro instance = null;
 
     private static final double kP = 0, kI = 0, kD = 0; // TODO: tune this
     private PIDController pid;

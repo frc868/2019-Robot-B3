@@ -15,13 +15,13 @@ public class OI {
     public static ControllerWrapper operator = new ControllerWrapper(RobotMap.Controllers.OPERATOR_PORT);
 
     public static void init() {
-        Robot.hatchClaw.grab();
+        Robot.manipulator.grab();
     }
 
     public static void update() {
         Robot.drivetrain.arcadeDrive();
         if (operator.bLB.get()) {
-            Robot.hatchClaw.toggle();
+            Robot.manipulator.toggle();
         }
         Robot.climberElevator.setSpeed(operator.getLY());
 

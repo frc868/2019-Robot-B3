@@ -7,22 +7,26 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class HatchClaw {
+public class Manipulator {
 
-    private static HatchClaw instance;
+    private static Manipulator instance;
     private Solenoid claw;
+    private WPI_TalonSRX ballIntake;
 
     public static final boolean GRABBED_STATE = false; // TODO: test on/off state solenoid
 
-    private HatchClaw() {
+    private Manipulator() {
         claw = new Solenoid(RobotMap.Carriage.ACTUATOR);
-
+        ballIntake = new WPI_TalonSRX(RobotMap.Carriage.INTAKE_MOTOR);
         claw.set(GRABBED_STATE);
     }
 
@@ -31,9 +35,9 @@ public class HatchClaw {
      * If so, return it. If not, create it and return it.
      * @return instance of the ClimberArms class
      */
-    public static HatchClaw getInstance() {
+    public static Manipulator getInstance() {
         if(instance == null) {
-            instance = new HatchClaw();
+            instance = new Manipulator();
         }
         return instance;
     }
@@ -68,5 +72,20 @@ public class HatchClaw {
      */
     public boolean isGrabbed() {
         return claw.get() == GRABBED_STATE;
+    }
+
+    public void manualIntake () {
+        double rightOperatorTrigger = OI.operator.getRT();
+        double leftOperatorTrigger = OI.operator.getLT();
+
+        double rightDriverTrigger = OI.driver.getRT();
+        double leftDriverTrigger = OI.driver.getLT();
+
+        ballIntake.set(
+            leftOperatorTrigger
+            - rightOperatorTrigger
+            + leftDriverTrigger
+            - rightDriverTrigger
+        );
     }
 }

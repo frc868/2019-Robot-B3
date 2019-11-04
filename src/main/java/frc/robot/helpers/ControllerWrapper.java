@@ -100,6 +100,20 @@ public class ControllerWrapper {
     }
 
     /**
+     * Returns the left trigger's value.
+     */
+    public double getLT() {
+        return this.controller.getRawAxis(RobotMap.Controllers.LT);
+    }
+
+    /**
+     * Returns the right trigger's value.
+     */
+    public double getRT() {
+        return this.controller.getRawAxis(RobotMap.Controllers.RT);
+    }
+
+    /**
      * Rumbles the controller for a given amount of time.
      * NEEDS TESTING.
      */

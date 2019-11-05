@@ -71,5 +71,6 @@ public class OI {
         SmartDashboard.putBoolean("Climber Top Limit", Robot.climberElevator.getTopLimit());
         SmartDashboard.putBoolean("Climber Bot Limit", Robot.climberElevator.getBotLimit());
         SmartDashboard.putNumber("Elevator Power", Robot.climberElevator.getElevatorSpeed());
+        SmartDashboard.putNumber("Tilt Position", Robot.tilt.getPotPosition());
     }
 }

@@ -307,7 +307,7 @@ public class ClimberElevator {
      * @param speed a multiplier of speed for training mode
      */
     public void manualElevator(double speed) {
-        if (OI.operator.bLB.get()) {
+        if (OI.operator.bRB.get()) {
             this.setSpeed(OI.operator.getLY() * speed);
         }
     }

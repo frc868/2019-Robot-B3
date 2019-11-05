@@ -53,6 +53,12 @@ public class RobotMap {
         public static final int BALL_IR_LIMIT = 2; // untested
     }
 
+    public static class Tilt {
+        public static final int MOTOR = 15; // untested
+        public static final int POTENTIOMETER = 0; // untested
+        public static final int BRAKE = 0; // untested
+    }
+
     public static class Sensors {
         public static final Port GYRO = SPI.Port.kMXP; // untested
     }
@@ -73,10 +79,10 @@ public class RobotMap {
         public static final int MENU = 7;
 
         public static final int LX = 0;
-        // public static final int LY = 1; // Arcade drive
-        // public static final int RX = 4; // Arcade drive
-        public static final int LY = 1; // TODO: delete these
-        public static final int RX = 0; // TODO: delete these
+        public static final int LY = 1; // Arcade drive
+        public static final int RX = 4; // Arcade drive
+        //public static final int LY = 1; // TODO: delete these
+        //public static final int RX = 0; // TODO: delete these
 
         public static final int RY = 5;
         public static final int LT = 2;

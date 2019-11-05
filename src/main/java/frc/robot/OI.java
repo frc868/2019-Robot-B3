@@ -45,7 +45,7 @@ public class OI {
 
         driver.bMENU.whenPressed(() -> {
             Robot.climberArms.deploy();
-            // TODO: Set tilt position "Upper"
+            Robot.tilt.setPosition(TiltPosition.HIGH);
             Robot.manipulator.grab();
         });
         // TODO: Start -- ManualClimber
@@ -60,6 +60,9 @@ public class OI {
         operator.dS.whenPressed(() -> Robot.tilt.setPosition(TiltPosition.LOW));
 
         operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
+
+        // TODO: not sure if this needs to check climb mode
+        Robot.climberElevator.driveFoot(operator.getRY());
 
         updateSD();
     }

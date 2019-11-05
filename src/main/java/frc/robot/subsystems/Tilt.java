@@ -104,6 +104,8 @@ public class Tilt {
         } else {
             motor.set(Helper.boundValue(speed));
         }
+
+        setTiltBrake(speed == 0.0);
     }
 
     /**
@@ -111,6 +113,18 @@ public class Tilt {
      */
     public void stop() {
         motor.stopMotor();
+    }
+
+    /**
+     * sets the tilt brake to on or off
+     * @param state whether brake should be on (true) or off (false)
+     */
+    public void setTiltBrake(boolean state) {
+        if (state) {
+            brake.set(BRAKE_MODE);
+        } else {
+            brake.set(!BRAKE_MODE);
+        }
     }
 
     /**

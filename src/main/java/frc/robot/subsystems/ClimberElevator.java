@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.helpers.Helper;
 import frc.robot.sensors.IRLimit;
 
 /**
@@ -43,7 +44,7 @@ public class ClimberElevator {
     private final boolean ELEVATOR_MODE = false; // switcher mode to activate elevator
     private final boolean BRAKE_MODE = false;
 
-    private static final double kP = 0.00, kI = 0.00, kD = 0.00; // TODO: tune PID constants
+    private static final double kP = 0.08, kI = 0.00, kD = 0.01; // TODO: tune PID constants
     private PIDController pid; // the pid pid for the elevator
     private PIDSource pidSource; // source for pid pid
     private PIDOutput pidOutput; // output for pid pid
@@ -129,13 +130,13 @@ public class ClimberElevator {
      */
     public void setSpeed(double speed) {
         if (elevTopLim.get()) {
+            Helper.boundValue(speed,0,-1);
         }
         else if (elevBotLim.get()) {
-        }
-        else {
+            Helper.boundValue(speed,1,0);
         }
 
-        setElevBrake(speed == 0.0);
+        // setElevBrake(speed == 0.0);
 
         primary.set(-speed);
     }
@@ -259,10 +260,10 @@ public class ClimberElevator {
      * @param pos a Position representing where to go
      */
     public void setPosition(Position pos) {
-        boolean hasHatch = false; // false if ball, true if hatch; defaults to ball
+        boolean hasBall = false; // false if ball, true if hatch; defaults to ball
 
-        if (Robot.manipulator.isGrabbed()) {
-            hasHatch = true;
+        if (Robot.manipulator.isBallDetected()) {
+            hasBall = true;
         }
 
         if (!pid.isEnabled()) {
@@ -274,24 +275,24 @@ public class ClimberElevator {
                 pid.setSetpoint(INTAKE_BALL);
                 break;
             case LOW: 
-                if (hasHatch) {
-                    pid.setSetpoint(LOWER_HATCH);
-                } else {
+                if (hasBall) {
                     pid.setSetpoint(LOWER_BALL);
+                } else {
+                    pid.setSetpoint(LOWER_HATCH);
                 }
                 break;
             case MIDDLE: 
-                if (hasHatch) {
-                    pid.setSetpoint(MIDDLE_HATCH);
-                } else {
+                if (hasBall) {
                     pid.setSetpoint(MIDDLE_BALL);
+                } else {
+                    pid.setSetpoint(MIDDLE_HATCH);
                 }
                 break;
             case HIGH:
-                if (hasHatch) {
-                    pid.setSetpoint(UPPER_HATCH);
-                } else {
+                if (hasBall) {
                     pid.setSetpoint(UPPER_BALL);
+                } else {
+                    pid.setSetpoint(UPPER_HATCH);
                 }
                 break;
             default:

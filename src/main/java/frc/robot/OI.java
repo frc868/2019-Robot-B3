@@ -50,14 +50,11 @@ public class OI {
         // TODO: Start -- ManualClimber
 
         // OPERATOR CONTROLS
-        operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(Position.HIGH));
+        operator.bY.whenPressed(() -> Robot.climberElevator.setPosition(Position.HIGH));
         operator.bB.whenPressed(() -> Robot.climberElevator.setPosition(Position.MIDDLE));
-        operator.bY.whenPressed(() -> Robot.climberElevator.setPosition(Position.LOW));
+        operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(Position.LOW));
 
         operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
-
-        // TODO: this should be bound with a trigger
-        Robot.climberElevator.setSpeed(operator.getLY());
 
         updateSD();
     }
@@ -68,5 +65,6 @@ public class OI {
     public static void updateSD() {
         SmartDashboard.putBoolean("Climber Top Limit", Robot.climberElevator.getTopLimit());
         SmartDashboard.putBoolean("Climber Bot Limit", Robot.climberElevator.getBotLimit());
+        SmartDashboard.putNumber("Elevator Power", Robot.climberElevator.getElevatorSpeed());
     }
 }

@@ -26,6 +26,7 @@ public class OI {
     public static void update() {
         // GENERAL CONTROLS/CONTROL METHODS
         Robot.drivetrain.arcadeDrive(0.85); // training mode
+        Robot.climberElevator.manualElevator(0.5); // training mode
         Robot.manipulator.manualIntake();
 
         // DRIVER CONTROLS

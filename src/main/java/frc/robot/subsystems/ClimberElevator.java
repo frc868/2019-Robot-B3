@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.helpers.Helper;
@@ -298,6 +299,24 @@ public class ClimberElevator {
             default:
                 break;
         }
+    }
+
+    /**
+     * Manually runs the elevator.
+     * Note: Only for use on operator controller. Used by left stick and right bumper.
+     * @param speed a multiplier of speed for training mode
+     */
+    public void manualElevator(double speed) {
+        if (OI.operator.bLB.get()) {
+            this.setSpeed(OI.operator.getLY() * speed);
+        }
+    }
+
+    /**
+     * Default manual elevator with full speed.
+     */
+    public void manualElevator() {
+        this.manualElevator(1);
     }
 
     /**

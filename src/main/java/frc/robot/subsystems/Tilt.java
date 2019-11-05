@@ -174,6 +174,7 @@ public class Tilt {
             startPid();
         }
         stopBrake();
+        this.limitPower = false;
         switch (pos) {
             case LOW:
                 pid.setSetpoint(LOWER);
@@ -182,6 +183,7 @@ public class Tilt {
                 pid.setSetpoint(MIDDLE);
                 break;
             case HIGH:
+                this.limitPower = true;
                 pid.setSetpoint(UPPER);
                 break;
             default:

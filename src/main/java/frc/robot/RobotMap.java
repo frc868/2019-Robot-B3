@@ -92,6 +92,6 @@ public class RobotMap {
     }
 
     public static class ClimberArms {
-        public static final int SOLENOID_CHANNEL = 0;
+        public static final int SOLENOID_CHANNEL = 6;
     }
 }

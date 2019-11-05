@@ -50,7 +50,7 @@ public class Tilt {
 
     private Tilt() {
         motor = new WPI_TalonSRX(RobotMap.Tilt.MOTOR);
-        brake = new Solenoid(RobotMap.PCM, RobotMap.Tilt.BRAKE);
+        brake = new Solenoid(RobotMap.Tilt.BRAKE);
         potentiometer = new AnalogPotentiometer(RobotMap.Tilt.POTENTIOMETER);
         limit = new PotLimit(potentiometer, UPPER, LOWER);
 
@@ -173,6 +173,7 @@ public class Tilt {
         if (!pid.isEnabled()) {
             startPid();
         }
+        stopBrake();
         switch (pos) {
             case LOW:
                 pid.setSetpoint(LOWER);

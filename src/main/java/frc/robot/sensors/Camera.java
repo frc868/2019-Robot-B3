@@ -23,7 +23,6 @@ public class Camera {
     private static Camera instance = null; // the instance to be used for getInstance()
 
     private NetworkTable table;
-    // TODO: figure out what these are (@skyler)
     private NetworkTableEntry tv, ta, tx, ts;
 
     // TODO: tune these! copied from 2019-Robot
@@ -33,10 +32,10 @@ public class Camera {
 
     private Camera() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        tv = table.getEntry("tv");
-        ta = table.getEntry("ta");
-        tx = table.getEntry("tx");
-        ts = table.getEntry("ts");
+        tv = table.getEntry("tv"); // target enabled?
+        ta = table.getEntry("ta"); // target area
+        tx = table.getEntry("tx"); // target x-position (y unused)
+        ts = table.getEntry("ts"); // target angle
     }
 
     /**

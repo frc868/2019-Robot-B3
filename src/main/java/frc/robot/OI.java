@@ -44,26 +44,29 @@ public class OI {
 
         driver.bLB.whenPressed(() -> Robot.manipulator.toggle());
 
+        // releases sled runners and puts robot in climb position
         driver.bMENU.whenPressed(() -> {
             Robot.climberArms.deploy();
             Robot.tilt.setPosition(TiltPosition.HIGH);
             Robot.manipulator.grab();
         });
-        // TODO: Start -- ManualClimber
+        driver.bSTART.whenPressed(() -> Robot.climberElevator.switchToClimber());
 
         // OPERATOR CONTROLS
-        operator.bY.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.HIGH));
-        operator.bB.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.MIDDLE));
-        operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.LOW));
+        operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
 
         operator.dN.whenPressed(() -> Robot.tilt.setPosition(TiltPosition.HIGH));
         operator.dE.whenPressed(() -> Robot.tilt.setPosition(TiltPosition.MIDDLE));
         operator.dS.whenPressed(() -> Robot.tilt.setPosition(TiltPosition.LOW));
 
-        operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
-
-        // TODO: not sure if this needs to check climb mode
-        Robot.climberElevator.driveFoot(operator.getRY());
+        if (Robot.climberElevator.isElevatorMode()) { // elevator mode only
+            operator.bY.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.HIGH));
+            operator.bB.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.MIDDLE));
+            operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.LOW));
+        } else { // climb mode only
+            Robot.climberElevator.setSpeed(operator.getLY()); // obsoletes ManualElevator!
+            Robot.climberElevator.driveFoot(operator.getRY()); // foot drive on RY
+        }
 
         updateSD();
     }

@@ -22,6 +22,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.helpers.Helper;
 import frc.robot.sensors.IRLimit;
+import frc.robot.subsystems.Tilt.TiltPosition;
 
 /**
  * Corresponds to the module driving both the climber lifting us onto HAB 3 and
@@ -183,7 +184,7 @@ public class ClimberElevator {
      * does NOT return the raw value of the switcher
      * @return true if in elevator, false if in climber
      */
-    public boolean getSwitcher() {
+    public boolean isElevatorMode() {
         return switcher.get() == ELEVATOR_MODE;
     }
 
@@ -274,6 +275,8 @@ public class ClimberElevator {
         switch (pos) {
             case INTAKE:
                 pid.setSetpoint(INTAKE_BALL);
+                Robot.tilt.setPosition(TiltPosition.LOW);
+                Robot.manipulator.grab();
                 break;
             case LOW: 
                 if (hasBall) {

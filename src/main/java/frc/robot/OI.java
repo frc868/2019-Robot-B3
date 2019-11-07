@@ -15,8 +15,8 @@ import frc.robot.subsystems.Tilt.TiltPosition;
  * @author dri
  */
 public class OI {
-    public static ControllerWrapper driver = new ControllerWrapper(RobotMap.Controllers.DRIVER_PORT);
-    public static ControllerWrapper operator = new ControllerWrapper(RobotMap.Controllers.OPERATOR_PORT);
+    public static ControllerWrapper driver = new ControllerWrapper(RobotMap.Controllers.DRIVER_PORT, true);
+    public static ControllerWrapper operator = new ControllerWrapper(RobotMap.Controllers.OPERATOR_PORT, true);
 
     public static TurnToAngleGyro turnTo = TurnToAngleGyro.getInstance();
 

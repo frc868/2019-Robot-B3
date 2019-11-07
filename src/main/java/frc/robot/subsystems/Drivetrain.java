@@ -113,8 +113,8 @@ public class Drivetrain {
         double y = OI.driver.getLY();
         double x = OI.driver.getRX();
 
-        y = -1 * Helper.deadzone(y, OI.driver) * speed;
-        x = -1 * Helper.deadzone(x, OI.driver) * speed;
+        y = -1 * y * speed;
+        x = -1 * x * speed;
 
         setSpeed(y+x, y-x);
     }

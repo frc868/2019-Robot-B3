@@ -29,12 +29,15 @@ public class ControllerWrapper {
     public ButtonWrapper bA, bB, bX, bY, bRB, bLB, bRSTK, bLSTK, bSTART, bMENU; // read: "button Menu"
     public ButtonWrapper dN, dE, dS, dW, dNE, dNW, dSE, dSW; // read: "d-pad North"
 
-    private Timer timer; // used for rumble timing
     private final double RUMBLE_DELAY = 0.3;
+    private final boolean DEADZONE_ENABLED;
+
+    private Timer timer; // used for rumble timing
     private double deadzone = 0.1;
 
-    public ControllerWrapper(int port) {
-        controller = new XboxController(port);
+    public ControllerWrapper(int port, boolean deadzone) {
+        this.controller = new XboxController(port);
+        this.DEADZONE_ENABLED = deadzone;
 
         // face buttons
         bA = new ButtonWrapper(this.controller, RobotMap.Controllers.A);
@@ -74,28 +77,44 @@ public class ControllerWrapper {
      * Returns the left stick's X-axis value.
      */
     public double getLX() {
-        return this.controller.getRawAxis(RobotMap.Controllers.LX);
+        double lx = this.controller.getRawAxis(RobotMap.Controllers.LX);
+        if (DEADZONE_ENABLED) {
+            return Helper.deadzone(lx, this.getDeadzone());
+        }
+        return lx;
     }
 
     /**
      * Returns the left stick's Y-axis value.
      */
     public double getLY() {
-        return this.controller.getRawAxis(RobotMap.Controllers.LY);
+        double ly = this.controller.getRawAxis(RobotMap.Controllers.LY);
+        if (DEADZONE_ENABLED) {
+            return Helper.deadzone(ly, this.getDeadzone());
+        }
+        return ly;
     }
 
     /**
      * Returns the right stick's X-axis value.
      */
     public double getRX() {
-        return this.controller.getRawAxis(RobotMap.Controllers.RX);
+        double rx = this.controller.getRawAxis(RobotMap.Controllers.RX);
+        if (DEADZONE_ENABLED) {
+            return Helper.deadzone(rx, this.getDeadzone());
+        }
+        return rx;
     }
 
     /**
      * Returns the right stick's Y-axis value.
      */
     public double getRY() {
-        return this.controller.getRawAxis(RobotMap.Controllers.RY);
+        double ry = this.controller.getRawAxis(RobotMap.Controllers.RY);
+        if (DEADZONE_ENABLED) {
+            return Helper.deadzone(ry, this.getDeadzone());
+        }
+        return ry;
     }
 
     /**

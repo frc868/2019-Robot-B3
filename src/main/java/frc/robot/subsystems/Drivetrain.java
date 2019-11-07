@@ -111,7 +111,7 @@ public class Drivetrain {
      */
     public void arcadeDrive(double speed) {
         double y = OI.driver.getLY();
-        double x = OI.driver.getLY();
+        double x = OI.driver.getRX();
 
         y = -1 * Helper.deadzone(y, OI.driver) * speed;
         x = -1 * Helper.deadzone(x, OI.driver) * speed;

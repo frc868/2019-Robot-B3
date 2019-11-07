@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autonomous.TurnToAngleGyro;
 import frc.robot.helpers.ControllerWrapper;
+import frc.robot.helpers.Helper;
 import frc.robot.subsystems.ClimberElevator.ElevatorPosition;
 import frc.robot.subsystems.Tilt.TiltPosition;
 
@@ -50,7 +51,8 @@ public class OI {
             Robot.tilt.setPosition(TiltPosition.HIGH);
             Robot.manipulator.grab();
         });
-        driver.bSTART.whenPressed(() -> Robot.climberElevator.switchToClimber());
+        driver.bSTART.whenPressed(() -> Robot.climberElevator.switchToggle());
+        // TODO: don't know if ^ is a good idea
 
         // OPERATOR CONTROLS
         operator.bLB.whenPressed(() -> Robot.manipulator.toggle());
@@ -65,7 +67,8 @@ public class OI {
             operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.LOW));
         } else { // climb mode only
             Robot.climberElevator.setSpeed(operator.getLY()); // obsoletes ManualElevator!
-            Robot.climberElevator.driveFoot(operator.getRY()); // foot drive on RY
+            Robot.climberElevator.driveFoot(Helper.boundValue(operator.getRY(), -1, 0)); // foot drive on RY
+            // TODO: ^ may need to be inverted
         }
 
         updateSD();

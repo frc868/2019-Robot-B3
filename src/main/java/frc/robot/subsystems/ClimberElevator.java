@@ -179,6 +179,13 @@ public class ClimberElevator {
         switcher.set(!ELEVATOR_MODE);
     }
 
+    /**
+     * Toggles the switcher between elevator and climber.
+     */
+    public void switchToggle() {
+        switcher.set(!switcher.get());
+    }
+
     /** 
      * checks whether the mechanism is in elevator mode or climber mode
      * does NOT return the raw value of the switcher

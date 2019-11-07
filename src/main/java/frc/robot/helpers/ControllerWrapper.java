@@ -132,7 +132,7 @@ public class ControllerWrapper {
     }
 
     /**
-     * Sets the controller's deadzone. Not used in ControllerWrapper, but used elsewhere.
+     * Sets the controller's deadzone.
      * @param deadzone the deadzone (for both sides of the axis) to set
      */
     public void setDeadzone(double deadzone) {
@@ -140,7 +140,7 @@ public class ControllerWrapper {
     }
 
     /**
-     * Gets the controller's deadzone. Not used in ControllerWrapper, but used elsewhere.
+     * Gets the controller's deadzone.
      */
     public double getDeadzone() {
         return this.deadzone;

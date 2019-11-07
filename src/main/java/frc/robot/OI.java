@@ -26,8 +26,12 @@ public class OI {
 
     public static void update() {
         // GENERAL CONTROLS/CONTROL METHODS
-        Robot.drivetrain.arcadeDrive(0.85); // training mode
-        Robot.climberElevator.manualElevator(0.5); // training mode
+        if (Robot.climberElevator.isElevatorMode()) { // only in elevator/drive mode
+            Robot.drivetrain.arcadeDrive(0.85); // training mode
+            Robot.climberElevator.manualElevator(0.5); // training mode
+        } else { // only in climb mode
+            Robot.drivetrain.arcadeDrive(0.25); // limit drivetrain speed to prevent tipping
+        }
         Robot.manipulator.manualIntake();
 
         // DRIVER CONTROLS
@@ -66,7 +70,7 @@ public class OI {
             operator.bB.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.MIDDLE));
             operator.bA.whenPressed(() -> Robot.climberElevator.setPosition(ElevatorPosition.LOW));
         } else { // climb mode only
-            Robot.climberElevator.setSpeed(operator.getLY()); // obsoletes ManualElevator!
+            Robot.climberElevator.setSpeed(Helper.boundValue(operator.getLY())); // obsoletes ManualElevator!
             Robot.climberElevator.driveFoot(Helper.boundValue(operator.getRY(), -1, 0)); // foot drive on RY
             // TODO: ^ may need to be inverted
         }

@@ -1,5 +1,12 @@
 package frc.robot.helpers;
 
+/**
+ * The helper class. Defines various functions used throughout the codebase.
+ * These usually tend to be trivial math functions that we don't want to copy into each subsystem.
+ * 
+ * @author lm
+ * @author ic
+ */
 public class Helper {
     /**
      * Given a value, checks to makes sure it is between min and max. If not replace with the value
@@ -48,7 +55,17 @@ public class Helper {
         }
     }
 
-    // this is a comment
+    /**
+     * Creates a virtual deadzone on a specific controller.
+     * @param value value to deadzone
+     * @param controller the controller to set the deadzone on
+     * @return the "deadzoned" version of the input value
+     * @author hrl
+     */
+    public static double deadzone(double value, ControllerWrapper controller) {
+        return deadzone(value, controller.getDeadzone());
+    }
+
     /**
      * Takes the value and returns the value to the third power
      * @param value value to be cubed

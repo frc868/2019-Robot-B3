@@ -31,6 +31,7 @@ public class ControllerWrapper {
 
     private Timer timer; // used for rumble timing
     private final double RUMBLE_DELAY = 0.3;
+    private double deadzone = 0.1;
 
     public ControllerWrapper(int port) {
         controller = new XboxController(port);
@@ -109,6 +110,21 @@ public class ControllerWrapper {
      */
     public double getRT() {
         return this.controller.getRawAxis(RobotMap.Controllers.RT);
+    }
+
+    /**
+     * Sets the controller's deadzone. Not used in ControllerWrapper, but used elsewhere.
+     * @param deadzone the deadzone (for both sides of the axis) to set
+     */
+    public void setDeadzone(double deadzone) {
+        this.deadzone = deadzone;
+    }
+
+    /**
+     * Gets the controller's deadzone. Not used in ControllerWrapper, but used elsewhere.
+     */
+    public double getDeadzone() {
+        return this.deadzone;
     }
 
     /**

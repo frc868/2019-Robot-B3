@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.OI;
 import frc.robot.RobotMap;
+import frc.robot.helpers.Helper;
 
 /**
  * This class is the robot's Drivetrain. It is a singleton to avoid instantiating it multiple times
@@ -26,7 +27,6 @@ public class Drivetrain {
 
     private static Drivetrain instance; // This is the instance of the drivetrain class
 
-    private static final double DEADZONE_RANGE = 0.1; // Bounds of the "dead zone" within joystick
     private static final double INCHES_PER_TICK = 2.15812;
 
     private Drivetrain() {
@@ -97,7 +97,7 @@ public class Drivetrain {
         double initialDist = getAveragePosition();
         double distanceToTarget = Math.abs(targetDist) - Math.abs(getAveragePosition() - initialDist);
 
-        double targetSpeed = pGain*(startPower + ((endPower - startPower) / distanceToTarget));
+        double targetSpeed = pGain * (startPower + ((endPower - startPower) / distanceToTarget));
 
         if(distanceToTarget > 0) {
             setSpeed(targetSpeed, targetSpeed); // TODO: code sanity check
@@ -113,8 +113,8 @@ public class Drivetrain {
         double y = OI.driver.getLY();
         double x = OI.driver.getLY();
 
-        y = -1 * deadband(y) * speed;
-        x = -1 * deadband(x) * speed;
+        y = -1 * Helper.deadzone(y, OI.driver) * speed;
+        x = -1 * Helper.deadzone(x, OI.driver) * speed;
 
         setSpeed(y+x, y-x);
     }
@@ -154,13 +154,5 @@ public class Drivetrain {
     public void resetEncoderPositions() {
         l_primary.getEncoder().setPosition(0);
         r_primary.getEncoder().setPosition(0);
-    }
-
-    /** 
-     * @param value the value of the joystick
-     * @return the value of the joystick if it is outside the range of the deadband
-     */
-    public static double deadband(double value) {
-        return Math.abs(value) < DEADZONE_RANGE ? 0 : value;
     }
 }

@@ -38,14 +38,16 @@ public class OI {
         driver.bA.whileHeld(() -> Robot.camera.manualFollowVision());
         driver.bA.whenReleased(() -> Robot.drivetrain.setSpeed(0, 0)); // cancel manualFollowVision
 
-        driver.bB.whenPressed(() -> turnTo.run(130));
+        // uncomment these when we're confident that Indu won't kill Fronek
+        // also they're kinda useless
+        /* driver.bB.whenPressed(() -> turnTo.run(130));
         driver.bB.whenReleased(() -> turnTo.stop());
         driver.bX.whenPressed(() -> turnTo.run(-130));
         driver.bX.whenReleased(() -> turnTo.stop());
         driver.dW.whenPressed(() -> turnTo.run(-90));
         driver.dW.whenReleased(() -> turnTo.stop());
         driver.dE.whenPressed(() -> turnTo.run(90));
-        driver.dE.whenReleased(() -> turnTo.stop());
+        driver.dE.whenReleased(() -> turnTo.stop()); */
 
         driver.bLB.whenPressed(() -> Robot.manipulator.toggle());
 

@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     OI.update();
+    camera.update();
   }
 
   @Override

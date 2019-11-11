@@ -32,10 +32,7 @@ public class Camera {
 
     private Camera() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        tv = table.getEntry("tv"); // target enabled?
-        ta = table.getEntry("ta"); // target area
-        tx = table.getEntry("tx"); // target x-position (y unused)
-        ts = table.getEntry("ts"); // target angle
+        this.update(); // initial run
     }
 
     /**
@@ -46,6 +43,19 @@ public class Camera {
             instance = new Camera();
         }
         return instance;
+    }
+
+    /**
+     * A standard method for updating a subsystem or sensor.
+     * Call in robotPeriodic().
+     * 
+     * This updates the various state variables used for followVision.
+     */
+    public void update() {
+        tv = table.getEntry("tv"); // target enabled?
+        ta = table.getEntry("ta"); // target area
+        tx = table.getEntry("tx"); // target x-position (y unused)
+        ts = table.getEntry("ts"); // target angle
     }
 
     /**
@@ -115,7 +125,7 @@ public class Camera {
             double posValue = posError * kPos * Math.sqrt(Helper.boundValue((area * kArea), 0, 1));
 
             // y movement on driver controller
-            double y = Helper.deadzone(-OI.driver.getLY(), 0.03);
+            double y = -OI.driver.getLY();
 
             // powers to set drivetrain to
             double left = y + posValue;

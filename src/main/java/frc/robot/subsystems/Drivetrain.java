@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.OI;
 import frc.robot.RobotMap;
-import frc.robot.helpers.Helper;
 
 /**
  * This class is the robot's Drivetrain. It is a singleton to avoid instantiating it multiple times

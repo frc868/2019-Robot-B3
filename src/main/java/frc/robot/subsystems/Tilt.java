@@ -95,10 +95,25 @@ public class Tilt {
     }
 
     /**
+     * A standard method for updating a subsystem or sensor.
+     * Call in robotPeriodic().
+     * 
+     * This ensures that the tilt's PID stops when the setpoint is reached.
+     */
+    public void update() {
+        if (getPotPosition() == pid.getSetpoint()) {
+            stopPid();
+            setTiltBrake(true);
+        }
+    }
+
+    /**
      * Sets the tilt motor's speed manually.
      * @param speed the motor speed from -1 to 1
      */
     public void setSpeed(double speed) {
+        setTiltBrake(false);
+
         if (limitPower) {
             motor.set(Helper.boundValue(speed, -0.25, 0.25));
         } else {
@@ -125,6 +140,13 @@ public class Tilt {
         } else {
             brake.set(!BRAKE_MODE);
         }
+    }
+
+    /**
+     * Gets the current tilt brake status.
+     */
+    public boolean getTiltBrake() {
+        return brake.get();
     }
 
     /**
